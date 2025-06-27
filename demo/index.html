@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guided Tour Demo - Interactive Web Tour Library</title>
+    <link rel="stylesheet" href="../src/styles/guided-tour.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+        
+        /* Header */
+        .header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            text-align: center;
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+        
+        /* Navigation */
+        .nav {
+            background-color: #34495e;
+            padding: 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .nav li {
+            margin: 0;
+        }
+        
+        .nav a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 15px 25px;
+            transition: background-color 0.3s;
+        }
+        
+        .nav a:hover {
+            background-color: #2c3e50;
+        }
+        
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .hero h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 12px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .btn-primary {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background-color: white;
+            color: #667eea;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #f8f9fa;
+            transform: translateY(-2px);
+        }
+        
+        /* Features Grid */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .feature-card h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+        
+        .feature-card p {
+            color: #666;
+            line-height: 1.8;
+        }
+        
+        .feature-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+        
+        /* Code Example */
+        .code-section {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            margin-bottom: 50px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .code-section h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        
+        pre {
+            background-color: #f4f4f4;
+            padding: 20px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border-left: 4px solid #3498db;
+        }
+        
+        code {
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 14px;
+            color: #333;
+        }
+        
+        /* Interactive Demo Area */
+        .demo-area {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            margin-bottom: 50px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .demo-controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .search-box {
+            padding: 12px 20px;
+            border: 2px solid #3498db;
+            border-radius: 25px;
+            font-size: 16px;
+            width: 300px;
+            transition: all 0.3s;
+        }
+        
+        .search-box:focus {
+            outline: none;
+            border-color: #2980b9;
+            box-shadow: 0 0 10px rgba(52, 152, 219, 0.3);
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 50px;
+        }
+        
+        .footer p {
+            opacity: 0.8;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h2 {
+                font-size: 2em;
+            }
+            
+            .search-box {
+                width: 100%;
+            }
+            
+            .nav ul {
+                flex-direction: column;
+            }
+            
+            .nav a {
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <h1>Guided Tour Library</h1>
+        <p>Create engaging, interactive tours for your web applications</p>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav" id="navigation">
+        <ul>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#demo">Demo</a></li>
+            <li><a href="#code">Code Example</a></li>
+            <li><a href="#documentation">Documentation</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero" id="hero-section">
+            <h2>Welcome to Interactive Web Tours</h2>
+            <p>Guide your users through your application with beautiful, animated tours that highlight important features and provide contextual help.</p>
+            <div class="cta-buttons">
+                <button class="btn btn-secondary" id="start-tour-btn">Start Tour</button>
+                <button class="btn btn-primary" id="feature-tour-btn">Feature Tour</button>
+            </div>
+        </section>
+
+        <!-- Features Grid -->
+        <section id="features">
+            <h2 style="text-align: center; margin-bottom: 40px; color: #2c3e50;">Key Features</h2>
+            <div class="features">
+                <div class="feature-card" id="feature-1">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Smart Positioning</h3>
+                    <p>Tooltips automatically position themselves for optimal visibility, adapting to screen size and scroll position.</p>
+                </div>
+                <div class="feature-card" id="feature-2">
+                    <div class="feature-icon">✨</div>
+                    <h3>Smooth Animations</h3>
+                    <p>Beautiful transitions and effects make the tour experience delightful and professional.</p>
+                </div>
+                <div class="feature-card" id="feature-3">
+                    <div class="feature-icon">🎨</div>
+                    <h3>Customizable Themes</h3>
+                    <p>Match your brand with customizable colors, styles, and components. Support for light and dark themes.</p>
+                </div>
+                <div class="feature-card" id="feature-4">
+                    <div class="feature-icon">📱</div>
+                    <h3>Mobile Responsive</h3>
+                    <p>Works perfectly on all devices with touch-friendly controls and adaptive layouts.</p>
+                </div>
+                <div class="feature-card" id="feature-5">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Lightweight</h3>
+                    <p>Minimal footprint with no dependencies. Fast loading and excellent performance.</p>
+                </div>
+                <div class="feature-card" id="feature-6">
+                    <div class="feature-icon">♿</div>
+                    <h3>Accessible</h3>
+                    <p>Built with accessibility in mind. Keyboard navigation, screen reader support, and WCAG compliance.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Demo -->
+        <section class="demo-area" id="demo">
+            <h2>Interactive Demo</h2>
+            <p>Try out different tour configurations and see the library in action.</p>
+            
+            <div class="demo-controls">
+                <button class="btn btn-primary" id="custom-tour-btn">Custom Tour</button>
+                <button class="btn btn-secondary" id="form-tour-btn">Form Tour</button>
+            </div>
+
+            <form id="demo-form">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" placeholder="Enter your username">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="your@email.com">
+                </div>
+                <div class="form-group">
+                    <label for="theme">Select Theme</label>
+                    <select id="theme">
+                        <option value="light">Light Theme</option>
+                        <option value="dark">Dark Theme</option>
+                        <option value="auto">Auto (System)</option>
+                    </select>
+                </div>
+            </form>
+
+            <div style="margin-top: 30px; text-align: center;">
+                <input type="search" class="search-box" id="search" placeholder="Search for anything...">
+            </div>
+        </section>
+
+        <!-- Code Example -->
+        <section class="code-section" id="code">
+            <h2>Quick Start</h2>
+            <p>Get started with just a few lines of code:</p>
+            <pre><code>// Initialize the tour
+const tour = new GuidedTour({
+  steps: [
+    {
+      element: '#header',
+      title: 'Welcome!',
+      content: 'This is your application header',
+      position: 'bottom'
+    },
+    {
+      element: '.search-box',
+      title: 'Search Feature',
+      content: 'Use this to search for anything',
+      position: 'top'
+    }
+  ]
+});
+
+// Start the tour
+tour.start();</code></pre>
+        </section>
+
+        <!-- Documentation -->
+        <section class="code-section" id="documentation">
+            <h2>Documentation</h2>
+            <p>Full documentation and examples are available in the <a href="https://github.com/yourusername/guided-tour" style="color: #3498db;">GitHub repository</a>.</p>
+            <h3 style="margin-top: 30px;">Installation</h3>
+            <pre><code>npm install guided-tour
+
+# or include via CDN
+&lt;script src="https://unpkg.com/guided-tour/dist/guided-tour.min.js"&gt;&lt;/script&gt;</code></pre>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2024 Guided Tour Library. Built with ❤️ for better user experiences.</p>
+    </footer>
+
+    <!-- Navigation to Enhanced Demo -->
+    <div style="position: fixed; top: 20px; right: 20px; z-index: 1000;">
+        <a href="enhanced.html" style="
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 10px 15px -3px rgba(0, 0, 0, 0.2)'" 
+           onmouseout="this.style.transform=''; this.style.boxShadow='0 4px 6px -1px rgba(0, 0, 0, 0.1)'">
+            <span>✨</span>
+            <span>Try Enhanced Version</span>
+        </a>
+    </div>
+
+    <!-- Include the library -->
+    <script type="module">
+        import GuidedTour from '../src/guided-tour.js';
+        
+        // Make GuidedTour available globally for demo
+        window.GuidedTour = GuidedTour;
+        
+        // Main tour
+        const mainTour = new GuidedTour({
+            id: 'main-tour',
+            steps: [
+                {
+                    element: '#header',
+                    title: 'Welcome to Guided Tour! 👋',
+                    content: 'This library helps you create interactive tours for your web applications. Let me show you around!',
+                    position: 'bottom'
+                },
+                {
+                    element: '#navigation',
+                    title: 'Navigation Bar',
+                    content: 'Use these links to quickly jump to different sections of the page.',
+                    position: 'bottom'
+                },
+                {
+                    element: '#hero-section',
+                    title: 'Hero Section',
+                    content: 'This is where you introduce your product or service. Notice how the tour highlights each element!',
+                    position: 'top'
+                },
+                {
+                    element: '#feature-1',
+                    title: 'Smart Features',
+                    content: 'Each feature card showcases a key capability of the library. The tour automatically scrolls to bring elements into view.',
+                    position: 'right'
+                },
+                {
+                    element: '#search',
+                    title: 'Interactive Elements',
+                    content: 'You can still interact with highlighted elements during the tour. Try typing in this search box!',
+                    position: 'top'
+                },
+                {
+                    element: '.guided-tour-toggle',
+                    title: 'Toggle Button',
+                    content: 'This floating button lets users restart the tour anytime. It can be positioned anywhere on the screen.',
+                    position: 'left'
+                }
+            ]
+        });
+        
+        // Feature tour
+        const featureTour = new GuidedTour({
+            id: 'feature-tour',
+            steps: [
+                {
+                    element: '#feature-1',
+                    title: 'Smart Positioning',
+                    content: 'The tooltip automatically finds the best position to avoid going off-screen.',
+                    position: 'auto'
+                },
+                {
+                    element: '#feature-2',
+                    title: 'Smooth Animations',
+                    content: 'Notice the smooth transitions between steps and the pulse effect on highlighted elements.',
+                    position: 'auto'
+                },
+                {
+                    element: '#feature-3',
+                    title: 'Customizable Themes',
+                    content: 'You can customize colors, fonts, and styles to match your brand.',
+                    position: 'auto'
+                },
+                {
+                    element: '#feature-4',
+                    title: 'Mobile Responsive',
+                    content: 'The tour adapts perfectly to different screen sizes and devices.',
+                    position: 'auto'
+                },
+                {
+                    element: '#feature-5',
+                    title: 'Lightweight & Fast',
+                    content: 'No dependencies means faster load times and better performance.',
+                    position: 'auto'
+                },
+                {
+                    element: '#feature-6',
+                    title: 'Accessible by Design',
+                    content: 'Built with accessibility in mind for all users.',
+                    position: 'auto'
+                }
+            ],
+            animation: {
+                duration: 400,
+                effects: ['fade', 'scale']
+            }
+        });
+        
+        // Form tour
+        const formTour = new GuidedTour({
+            id: 'form-tour',
+            steps: [
+                {
+                    element: '#demo-form',
+                    title: 'Demo Form',
+                    content: 'Let me guide you through this form step by step.',
+                    position: 'top'
+                },
+                {
+                    element: '#username',
+                    title: 'Username Field',
+                    content: 'Enter your desired username here. It should be unique and memorable.',
+                    position: 'right'
+                },
+                {
+                    element: '#email',
+                    title: 'Email Address',
+                    content: 'We\'ll use this to send you important updates and notifications.',
+                    position: 'right'
+                },
+                {
+                    element: '#theme',
+                    title: 'Theme Selection',
+                    content: 'Choose your preferred theme. The tour supports both light and dark modes!',
+                    position: 'right'
+                }
+            ],
+            highlight: {
+                padding: 10,
+                shape: 'rectangle'
+            }
+        });
+        
+        // Custom tour with different options
+        const customTour = new GuidedTour({
+            id: 'custom-tour',
+            steps: [
+                {
+                    element: '#code',
+                    title: 'Easy Integration',
+                    content: 'Adding tours to your application is as simple as writing a few lines of code.',
+                    position: 'top'
+                },
+                {
+                    element: '#documentation',
+                    title: 'Comprehensive Docs',
+                    content: 'Everything you need to know is documented with examples and best practices.',
+                    position: 'top'
+                },
+                {
+                    element: '.footer',
+                    title: 'That\'s All!',
+                    content: 'Thanks for taking the tour. Click the floating button anytime to restart.',
+                    position: 'top'
+                }
+            ],
+            theme: 'dark',
+            animation: {
+                duration: 500
+            },
+            highlight: {
+                pulse: true,
+                shape: 'auto'
+            }
+        });
+        
+        // Button event listeners
+        document.getElementById('start-tour-btn').addEventListener('click', () => {
+            mainTour.start();
+        });
+        
+        document.getElementById('feature-tour-btn').addEventListener('click', () => {
+            featureTour.start();
+        });
+        
+        document.getElementById('form-tour-btn').addEventListener('click', () => {
+            formTour.start();
+        });
+        
+        document.getElementById('custom-tour-btn').addEventListener('click', () => {
+            customTour.start();
+        });
+        
+        // Start main tour automatically after 1 second
+        setTimeout(() => {
+            if (!localStorage.getItem('guided-tour-state')) {
+                mainTour.start();
+            }
+        }, 1000);
+    </script>
+</body>
+</html>

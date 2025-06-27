@@ -1,0 +1,709 @@
+/* Guided Tour CSS Styles - Enhanced Version */
+
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* CSS Variables for Theming */
+:root {
+  --gt-primary: #6366f1;
+  --gt-primary-dark: #4f46e5;
+  --gt-primary-light: #818cf8;
+  --gt-secondary: #8b5cf6;
+  --gt-accent: #ec4899;
+  --gt-success: #10b981;
+  --gt-warning: #f59e0b;
+  --gt-danger: #ef4444;
+  --gt-dark: #1f2937;
+  --gt-light: #f9fafb;
+  --gt-shadow: rgba(0, 0, 0, 0.1);
+  --gt-shadow-lg: rgba(0, 0, 0, 0.15);
+  --gt-radius: 12px;
+  --gt-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Dark Theme Variables */
+.guided-tour-dark {
+  --gt-primary: #818cf8;
+  --gt-primary-dark: #6366f1;
+  --gt-primary-light: #a5b4fc;
+  --gt-secondary: #a78bfa;
+  --gt-accent: #f472b6;
+  --gt-dark: #f9fafb;
+  --gt-light: #111827;
+  --gt-shadow: rgba(0, 0, 0, 0.3);
+  --gt-shadow-lg: rgba(0, 0, 0, 0.5);
+}
+
+/* Reset and base styles */
+.guided-tour-overlay *,
+.guided-tour-tooltip *,
+.guided-tour-toggle * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Overlay styles with animation */
+.guided-tour-overlay {
+  transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  opacity: 0;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  will-change: opacity;
+}
+
+.guided-tour-overlay-visible {
+  opacity: 1;
+}
+
+/* Enable GPU acceleration for smoother animations */
+.guided-tour-overlay svg {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Enhanced highlight animations */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.7);
+    transform: scale(1);
+  }
+  70% {
+    box-shadow: 0 0 0 20px rgba(99, 102, 241, 0);
+    transform: scale(1.05);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(99, 102, 241, 0);
+    transform: scale(1);
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 20px 5px rgba(99, 102, 241, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px 10px rgba(99, 102, 241, 0.5);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.guided-tour-target {
+  position: relative;
+  z-index: 9999;
+  border-radius: var(--gt-radius);
+  transition: var(--gt-transition);
+}
+
+.guided-tour-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite, glow 3s ease-in-out infinite;
+}
+
+/* Enhanced Tooltip styles */
+.guided-tour-tooltip {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04),
+    0 0 0 1px rgba(0, 0, 0, 0.05);
+  transition: opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform: scale(0.9) translateY(10px);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.95);
+  overflow: hidden;
+  will-change: transform, opacity;
+  transform-origin: center center;
+}
+
+.guided-tour-tooltip::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--gt-primary) 0%, var(--gt-secondary) 100%);
+}
+
+.guided-tour-tooltip-visible {
+  transform: scale(1) translateY(0);
+}
+
+.guided-tour-tooltip-content {
+  padding: 0;
+  position: relative;
+}
+
+/* Glassmorphism effect for header */
+.guided-tour-tooltip-header {
+  padding: 20px 24px;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.guided-tour-tooltip-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--gt-dark);
+  margin: 0;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+
+/* Beautiful close button */
+.guided-tour-tooltip-close {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  color: #9ca3af;
+  cursor: pointer;
+  padding: 0;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: var(--gt-transition);
+  position: relative;
+}
+
+.guided-tour-tooltip-close:hover {
+  background: linear-gradient(135deg, var(--gt-primary) 0%, var(--gt-secondary) 100%);
+  color: white;
+  transform: rotate(90deg);
+}
+
+.guided-tour-tooltip-body {
+  padding: 24px;
+  color: #4b5563;
+  font-size: 16px;
+  line-height: 1.7;
+  font-weight: 400;
+}
+
+.guided-tour-tooltip-body p {
+  margin-bottom: 14px;
+}
+
+.guided-tour-tooltip-body p:last-child {
+  margin-bottom: 0;
+}
+
+.guided-tour-tooltip-footer {
+  padding: 20px 24px;
+  background: rgba(249, 250, 251, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+/* Enhanced progress indicator */
+.guided-tour-tooltip-progress {
+  margin-bottom: 20px;
+}
+
+.guided-tour-tooltip-step {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gt-primary);
+  display: block;
+  margin-bottom: 10px;
+  letter-spacing: -0.01em;
+}
+
+.guided-tour-tooltip-progress-bar {
+  width: 100%;
+  height: 6px;
+  background: rgba(0, 0, 0, 0.06);
+  border-radius: 3px;
+  overflow: hidden;
+  position: relative;
+}
+
+.guided-tour-tooltip-progress-bar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.guided-tour-tooltip-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gt-primary) 0%, var(--gt-secondary) 100%);
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  border-radius: 3px;
+}
+
+.guided-tour-tooltip-nav {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+/* Enhanced Arrow styles */
+.guided-tour-tooltip-arrow {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background: white;
+  transform: rotate(45deg);
+  border-radius: 3px;
+}
+
+.guided-tour-tooltip-top .guided-tour-tooltip-arrow {
+  bottom: -8px;
+  box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+.guided-tour-tooltip-bottom .guided-tour-tooltip-arrow {
+  top: -8px;
+  box-shadow: -2px -2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.guided-tour-tooltip-left .guided-tour-tooltip-arrow {
+  right: -8px;
+  box-shadow: 2px -2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.guided-tour-tooltip-right .guided-tour-tooltip-arrow {
+  left: -8px;
+  box-shadow: -2px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Beautiful Button styles */
+.guided-tour-btn {
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: var(--gt-transition);
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: -0.01em;
+  position: relative;
+  overflow: hidden;
+}
+
+.guided-tour-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.guided-tour-btn:active::before {
+  width: 300px;
+  height: 300px;
+}
+
+.guided-tour-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Primary button with gradient */
+.guided-tour-btn-primary {
+  background: linear-gradient(135deg, var(--gt-primary) 0%, var(--gt-secondary) 100%);
+  color: white;
+  box-shadow: 
+    0 4px 6px -1px rgba(99, 102, 241, 0.3),
+    0 2px 4px -1px rgba(99, 102, 241, 0.2);
+}
+
+.guided-tour-btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 10px 15px -3px rgba(99, 102, 241, 0.4),
+    0 4px 6px -2px rgba(99, 102, 241, 0.3);
+}
+
+.guided-tour-btn-primary:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+/* Secondary button */
+.guided-tour-btn-secondary {
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--gt-dark);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.guided-tour-btn-secondary:hover:not(:disabled) {
+  background: rgba(0, 0, 0, 0.08);
+  border-color: rgba(99, 102, 241, 0.2);
+  transform: translateY(-1px);
+}
+
+/* Text button */
+.guided-tour-btn-text {
+  background: none;
+  color: #9ca3af;
+  padding: 10px 16px;
+  margin-left: auto;
+  margin-right: 8px;
+  font-weight: 500;
+}
+
+.guided-tour-btn-text:hover:not(:disabled) {
+  color: var(--gt-primary);
+  background: rgba(99, 102, 241, 0.05);
+}
+
+/* Enhanced Toggle button */
+.guided-tour-toggle {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--gt-primary) 0%, var(--gt-secondary) 100%);
+  color: white;
+  border: none;
+  cursor: pointer;
+  box-shadow: 
+    0 10px 15px -3px rgba(99, 102, 241, 0.4),
+    0 4px 6px -2px rgba(99, 102, 241, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transition: var(--gt-transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  font-weight: bold;
+  opacity: 0;
+  transform: scale(0.5) rotate(-180deg);
+  animation: float 3s ease-in-out infinite;
+}
+
+.guided-tour-toggle-visible {
+  opacity: 1;
+  transform: scale(1) rotate(0);
+}
+
+.guided-tour-toggle:hover {
+  transform: scale(1.1);
+  box-shadow: 
+    0 20px 25px -5px rgba(99, 102, 241, 0.5),
+    0 10px 10px -5px rgba(99, 102, 241, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.guided-tour-toggle:active {
+  transform: scale(1.05);
+}
+
+.guided-tour-toggle-active {
+  background: linear-gradient(135deg, var(--gt-danger) 0%, var(--gt-accent) 100%);
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.guided-tour-toggle-active:hover {
+  box-shadow: 
+    0 20px 25px -5px rgba(239, 68, 68, 0.5),
+    0 10px 10px -5px rgba(239, 68, 68, 0.4);
+}
+
+.guided-tour-toggle-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+/* Badge with animation */
+.guided-tour-toggle-badge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(135deg, var(--gt-danger) 0%, var(--gt-accent) 100%);
+  border-radius: 50%;
+  border: 3px solid white;
+  display: none;
+  animation: bounce 2s ease-in-out infinite;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Dark theme overrides */
+.guided-tour-dark .guided-tour-tooltip {
+  background: rgba(31, 41, 55, 0.95);
+  color: #f9fafb;
+  box-shadow: 
+    0 20px 25px -5px rgba(0, 0, 0, 0.3),
+    0 10px 10px -5px rgba(0, 0, 0, 0.2),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.guided-tour-dark .guided-tour-tooltip::before {
+  background: linear-gradient(90deg, var(--gt-primary) 0%, var(--gt-accent) 100%);
+}
+
+.guided-tour-dark .guided-tour-tooltip-header {
+  background: rgba(31, 41, 55, 0.8);
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+.guided-tour-dark .guided-tour-tooltip-title {
+  color: #f9fafb;
+}
+
+.guided-tour-dark .guided-tour-tooltip-close {
+  color: #9ca3af;
+}
+
+.guided-tour-dark .guided-tour-tooltip-close:hover {
+  background: linear-gradient(135deg, var(--gt-primary) 0%, var(--gt-accent) 100%);
+  color: white;
+}
+
+.guided-tour-dark .guided-tour-tooltip-body {
+  color: #e5e7eb;
+}
+
+.guided-tour-dark .guided-tour-tooltip-footer {
+  background: rgba(17, 24, 39, 0.8);
+  border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+.guided-tour-dark .guided-tour-tooltip-progress-bar {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.guided-tour-dark .guided-tour-tooltip-arrow {
+  background: #1f2937;
+}
+
+.guided-tour-dark .guided-tour-btn-secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: #f9fafb;
+}
+
+.guided-tour-dark .guided-tour-btn-secondary:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(129, 140, 248, 0.3);
+}
+
+/* Entrance animations */
+@keyframes slideInUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.guided-tour-tooltip-visible {
+  animation: slideInUp 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.guided-tour-toggle-visible {
+  animation: fadeInScale 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Responsive styles */
+@media (max-width: 640px) {
+  .guided-tour-tooltip {
+    max-width: calc(100vw - 24px) !important;
+    margin: 12px;
+    border-radius: 12px;
+  }
+  
+  .guided-tour-tooltip-header {
+    padding: 16px 20px;
+  }
+  
+  .guided-tour-tooltip-title {
+    font-size: 18px;
+  }
+  
+  .guided-tour-tooltip-body {
+    padding: 20px;
+    font-size: 15px;
+  }
+  
+  .guided-tour-tooltip-nav {
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  .guided-tour-btn {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+  
+  .guided-tour-btn-text {
+    order: 3;
+    width: 100%;
+    margin: 12px 0 0 0;
+    text-align: center;
+  }
+  
+  .guided-tour-toggle {
+    width: 52px;
+    height: 52px;
+    font-size: 22px;
+  }
+}
+
+/* Print styles */
+@media print {
+  .guided-tour-overlay,
+  .guided-tour-tooltip,
+  .guided-tour-toggle {
+    display: none !important;
+  }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .guided-tour-tooltip {
+    border: 2px solid currentColor;
+  }
+  
+  .guided-tour-btn {
+    border: 2px solid currentColor;
+  }
+}
+
+/* Click area for highlighted elements */
+.guided-tour-click-area {
+  background: transparent;
+  cursor: pointer;
+}
+
+/* Additional animation keyframes */
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: translateX(-5px);
+  }
+  20%, 40%, 60%, 80% {
+    transform: translateX(5px);
+  }
+}
+
+@keyframes flip {
+  0% {
+    transform: perspective(400px) rotateY(0);
+  }
+  40% {
+    transform: perspective(400px) rotateY(170deg);
+  }
+  50% {
+    transform: perspective(400px) rotateY(190deg) scale(1);
+  }
+  80% {
+    transform: perspective(400px) rotateY(360deg) scale(0.95);
+  }
+  100% {
+    transform: perspective(400px) rotateY(360deg) scale(1);
+  }
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(4);
+    opacity: 0;
+  }
+}

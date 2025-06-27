@@ -1,0 +1,347 @@
+/* Minimal Theme - Clean, No Effects, Simple Design */
+
+/* CSS Variables for Minimal Theme */
+.guided-tour-minimal {
+  --gt-minimal-bg: #ffffff;
+  --gt-minimal-text: #2c3e50;
+  --gt-minimal-border: #dcdfe6;
+  --gt-minimal-primary: #409eff;
+  --gt-minimal-secondary: #909399;
+  --gt-minimal-shadow: rgba(0, 0, 0, 0.04);
+  --gt-minimal-radius: 2px;
+}
+
+/* Minimal Overlay - Simple semi-transparent background */
+.guided-tour-minimal .guided-tour-overlay {
+  transition: opacity 0.2s linear;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.guided-tour-minimal .guided-tour-overlay svg {
+  will-change: auto;
+  transform: none;
+}
+
+/* No animations for highlights */
+.guided-tour-minimal .guided-tour-target {
+  animation: none !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.guided-tour-minimal .guided-tour-pulse {
+  animation: none !important;
+}
+
+/* Minimal Tooltip - Flat design, no shadows */
+.guided-tour-minimal .guided-tour-tooltip {
+  background: var(--gt-minimal-bg);
+  border: 1px solid var(--gt-minimal-border);
+  border-radius: var(--gt-minimal-radius);
+  box-shadow: 0 2px 8px var(--gt-minimal-shadow);
+  transition: opacity 0.2s linear;
+  transform: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  overflow: visible;
+  will-change: auto;
+}
+
+.guided-tour-minimal .guided-tour-tooltip::before {
+  display: none; /* Remove gradient bar */
+}
+
+.guided-tour-minimal .guided-tour-tooltip-visible {
+  transform: none;
+  animation: none;
+}
+
+/* Minimal Header */
+.guided-tour-minimal .guided-tour-tooltip-header {
+  padding: 15px 20px;
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-bottom: 1px solid var(--gt-minimal-border);
+}
+
+.guided-tour-minimal .guided-tour-tooltip-title {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--gt-minimal-text);
+  letter-spacing: 0;
+}
+
+/* Minimal Close Button */
+.guided-tour-minimal .guided-tour-tooltip-close {
+  background: transparent;
+  border: 1px solid var(--gt-minimal-border);
+  font-size: 16px;
+  color: var(--gt-minimal-secondary);
+  width: 28px;
+  height: 28px;
+  border-radius: var(--gt-minimal-radius);
+  transition: none;
+}
+
+.guided-tour-minimal .guided-tour-tooltip-close:hover {
+  background: #f5f7fa;
+  color: var(--gt-minimal-text);
+  transform: none;
+  border-color: var(--gt-minimal-text);
+}
+
+/* Minimal Body */
+.guided-tour-minimal .guided-tour-tooltip-body {
+  padding: 20px;
+  color: var(--gt-minimal-text);
+  font-size: 14px;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+/* Minimal Footer */
+.guided-tour-minimal .guided-tour-tooltip-footer {
+  padding: 15px 20px;
+  background: #fafbfc;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-top: 1px solid var(--gt-minimal-border);
+}
+
+/* Minimal Progress */
+.guided-tour-minimal .guided-tour-tooltip-progress {
+  margin-bottom: 15px;
+}
+
+.guided-tour-minimal .guided-tour-tooltip-step {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--gt-minimal-secondary);
+  letter-spacing: 0;
+}
+
+.guided-tour-minimal .guided-tour-tooltip-progress-bar {
+  height: 2px;
+  background: var(--gt-minimal-border);
+  border-radius: 0;
+}
+
+.guided-tour-minimal .guided-tour-tooltip-progress-bar::before {
+  display: none; /* Remove shimmer effect */
+}
+
+.guided-tour-minimal .guided-tour-tooltip-progress-fill {
+  background: var(--gt-minimal-primary);
+  transition: width 0.2s linear;
+  border-radius: 0;
+}
+
+/* Minimal Arrow */
+.guided-tour-minimal .guided-tour-tooltip-arrow {
+  width: 8px;
+  height: 8px;
+  background: var(--gt-minimal-bg);
+  border: 1px solid var(--gt-minimal-border);
+  transform: rotate(45deg);
+  border-radius: 0;
+}
+
+.guided-tour-minimal .guided-tour-tooltip-top .guided-tour-tooltip-arrow {
+  bottom: -5px;
+  border-top: none;
+  border-left: none;
+  box-shadow: none;
+}
+
+.guided-tour-minimal .guided-tour-tooltip-bottom .guided-tour-tooltip-arrow {
+  top: -5px;
+  border-bottom: none;
+  border-right: none;
+  box-shadow: none;
+}
+
+.guided-tour-minimal .guided-tour-tooltip-left .guided-tour-tooltip-arrow {
+  right: -5px;
+  border-left: none;
+  border-bottom: none;
+  box-shadow: none;
+}
+
+.guided-tour-minimal .guided-tour-tooltip-right .guided-tour-tooltip-arrow {
+  left: -5px;
+  border-right: none;
+  border-top: none;
+  box-shadow: none;
+}
+
+/* Minimal Buttons */
+.guided-tour-minimal .guided-tour-btn {
+  padding: 8px 16px;
+  border-radius: var(--gt-minimal-radius);
+  font-size: 14px;
+  font-weight: 400;
+  border: 1px solid var(--gt-minimal-border);
+  transition: none;
+  letter-spacing: 0;
+  overflow: visible;
+}
+
+.guided-tour-minimal .guided-tour-btn::before {
+  display: none; /* Remove ripple effect */
+}
+
+.guided-tour-minimal .guided-tour-btn:hover {
+  transform: none;
+}
+
+.guided-tour-minimal .guided-tour-btn:active {
+  transform: none;
+}
+
+/* Minimal Primary Button */
+.guided-tour-minimal .guided-tour-btn-primary {
+  background: var(--gt-minimal-primary);
+  color: white;
+  border-color: var(--gt-minimal-primary);
+  box-shadow: none;
+}
+
+.guided-tour-minimal .guided-tour-btn-primary:hover:not(:disabled) {
+  background: #66b1ff;
+  border-color: #66b1ff;
+  box-shadow: none;
+}
+
+/* Minimal Secondary Button */
+.guided-tour-minimal .guided-tour-btn-secondary {
+  background: white;
+  color: var(--gt-minimal-text);
+  border-color: var(--gt-minimal-border);
+}
+
+.guided-tour-minimal .guided-tour-btn-secondary:hover:not(:disabled) {
+  background: #f5f7fa;
+  border-color: var(--gt-minimal-primary);
+  color: var(--gt-minimal-primary);
+}
+
+/* Minimal Text Button */
+.guided-tour-minimal .guided-tour-btn-text {
+  background: none;
+  color: var(--gt-minimal-secondary);
+  border: none;
+  padding: 8px 12px;
+  font-weight: 400;
+}
+
+.guided-tour-minimal .guided-tour-btn-text:hover:not(:disabled) {
+  color: var(--gt-minimal-primary);
+  background: none;
+}
+
+/* Minimal Toggle Button */
+.guided-tour-minimal .guided-tour-toggle {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--gt-minimal-radius);
+  background: white;
+  color: var(--gt-minimal-primary);
+  border: 2px solid var(--gt-minimal-primary);
+  box-shadow: 0 2px 8px var(--gt-minimal-shadow);
+  transition: opacity 0.2s linear;
+  font-size: 20px;
+  font-weight: 400;
+  opacity: 1;
+  transform: none;
+  animation: none;
+}
+
+.guided-tour-minimal .guided-tour-toggle-visible {
+  opacity: 1;
+  transform: none;
+  animation: none;
+}
+
+.guided-tour-minimal .guided-tour-toggle:hover {
+  background: var(--gt-minimal-primary);
+  color: white;
+  transform: none;
+  box-shadow: 0 2px 8px var(--gt-minimal-shadow);
+}
+
+.guided-tour-minimal .guided-tour-toggle:active {
+  transform: none;
+}
+
+.guided-tour-minimal .guided-tour-toggle-active {
+  background: var(--gt-minimal-primary);
+  color: white;
+  animation: none;
+}
+
+.guided-tour-minimal .guided-tour-toggle-badge {
+  width: 12px;
+  height: 12px;
+  background: #f56c6c;
+  border: 2px solid white;
+  animation: none;
+  box-shadow: none;
+}
+
+/* Remove all animations in minimal theme */
+.guided-tour-minimal * {
+  animation: none !important;
+  transition-duration: 0.2s !important;
+  transition-timing-function: linear !important;
+}
+
+/* Entrance/exit transitions only */
+.guided-tour-minimal .guided-tour-tooltip,
+.guided-tour-minimal .guided-tour-overlay,
+.guided-tour-minimal .guided-tour-toggle {
+  transition-property: opacity !important;
+}
+
+/* Dark variant of minimal theme */
+.guided-tour-minimal-dark {
+  --gt-minimal-bg: #1a1a1a;
+  --gt-minimal-text: #e0e0e0;
+  --gt-minimal-border: #333333;
+  --gt-minimal-primary: #4a9eff;
+  --gt-minimal-secondary: #888888;
+  --gt-minimal-shadow: rgba(0, 0, 0, 0.2);
+}
+
+.guided-tour-minimal-dark .guided-tour-tooltip {
+  background: var(--gt-minimal-bg);
+  color: var(--gt-minimal-text);
+}
+
+.guided-tour-minimal-dark .guided-tour-tooltip-footer {
+  background: #242424;
+}
+
+.guided-tour-minimal-dark .guided-tour-tooltip-arrow {
+  background: var(--gt-minimal-bg);
+}
+
+.guided-tour-minimal-dark .guided-tour-btn-secondary {
+  background: #2a2a2a;
+  color: var(--gt-minimal-text);
+}
+
+.guided-tour-minimal-dark .guided-tour-btn-secondary:hover:not(:disabled) {
+  background: #333333;
+}
+
+.guided-tour-minimal-dark .guided-tour-toggle {
+  background: #2a2a2a;
+  border-color: #4a4a4a;
+}
+
+.guided-tour-minimal-dark .guided-tour-toggle:hover {
+  background: var(--gt-minimal-primary);
+  border-color: var(--gt-minimal-primary);
+}

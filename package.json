@@ -1,0 +1,26 @@
+{
+  "name": "guided-tour-webapp",
+  "version": "1.0.0",
+  "description": "Interactive guided web tour library with animations and customizable components",
+  "type": "module",
+  "main": "dist/guided-tour.js",
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "serve": "python3 -m http.server 8080"
+  },
+  "keywords": [
+    "tour",
+    "guide",
+    "onboarding",
+    "tutorial",
+    "webapp"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "rollup": "^4.9.6"
+  }
+}

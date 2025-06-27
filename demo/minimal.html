@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minimal Theme Demo - Guided Tour</title>
+    <link rel="stylesheet" href="../src/styles/guided-tour.css">
+    <link rel="stylesheet" href="../src/styles/minimal-theme.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: #ffffff;
+        }
+        
+        /* Minimal Header */
+        .header {
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+            padding: 20px 0;
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header h1 {
+            font-size: 24px;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+        
+        /* Navigation */
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .nav-link {
+            color: #6c757d;
+            text-decoration: none;
+            font-size: 14px;
+            padding: 8px 16px;
+            border-radius: 2px;
+            transition: background 0.2s;
+        }
+        
+        .nav-link:hover {
+            background: #e9ecef;
+            color: #2c3e50;
+        }
+        
+        .nav-link.home {
+            background: #409eff;
+            color: white;
+        }
+        
+        .nav-link.home:hover {
+            background: #66b1ff;
+        }
+        
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+        
+        .hero h2 {
+            font-size: 36px;
+            font-weight: 300;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        
+        .hero p {
+            font-size: 18px;
+            color: #6c757d;
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+        
+        /* Tour Controls */
+        .tour-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .tour-btn {
+            background: white;
+            border: 1px solid #dcdfe6;
+            color: #606266;
+            padding: 12px 24px;
+            border-radius: 2px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        
+        .tour-btn:hover {
+            color: #409eff;
+            border-color: #409eff;
+        }
+        
+        .tour-btn.primary {
+            background: #409eff;
+            color: white;
+            border-color: #409eff;
+        }
+        
+        .tour-btn.primary:hover {
+            background: #66b1ff;
+            border-color: #66b1ff;
+        }
+        
+        /* Content Grid */
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .content-card {
+            background: #fafbfc;
+            border: 1px solid #e9ecef;
+            padding: 30px;
+            border-radius: 2px;
+        }
+        
+        .content-card h3 {
+            font-size: 20px;
+            font-weight: 500;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .content-card p {
+            color: #6c757d;
+            line-height: 1.8;
+        }
+        
+        /* Feature List */
+        .feature-list {
+            background: #f8f9fa;
+            padding: 60px 0;
+            margin: 60px -20px;
+        }
+        
+        .feature-list-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .feature-list h2 {
+            font-size: 28px;
+            font-weight: 400;
+            text-align: center;
+            margin-bottom: 40px;
+            color: #2c3e50;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+        
+        .feature {
+            text-align: center;
+        }
+        
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+            opacity: 0.7;
+        }
+        
+        .feature h4 {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        
+        .feature p {
+            font-size: 14px;
+            color: #6c757d;
+        }
+        
+        /* Form Section */
+        .form-section {
+            max-width: 600px;
+            margin: 60px auto;
+        }
+        
+        .form-section h2 {
+            font-size: 24px;
+            font-weight: 400;
+            margin-bottom: 30px;
+            text-align: center;
+            color: #2c3e50;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #606266;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #dcdfe6;
+            border-radius: 2px;
+            font-size: 14px;
+            transition: border-color 0.2s;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #409eff;
+        }
+        
+        .form-submit {
+            width: 100%;
+            padding: 12px;
+            background: #409eff;
+            color: white;
+            border: none;
+            border-radius: 2px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .form-submit:hover {
+            background: #66b1ff;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #f8f9fa;
+            border-top: 1px solid #e9ecef;
+            padding: 40px 20px;
+            text-align: center;
+            margin-top: 80px;
+        }
+        
+        .footer p {
+            color: #6c757d;
+            font-size: 14px;
+        }
+        
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+        
+        .theme-btn {
+            background: white;
+            border: 1px solid #dcdfe6;
+            padding: 8px 16px;
+            border-radius: 2px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.2s;
+        }
+        
+        .theme-btn:hover {
+            background: #f8f9fa;
+        }
+        
+        .theme-btn.active {
+            background: #409eff;
+            color: white;
+            border-color: #409eff;
+        }
+        
+        /* Dark Mode */
+        body.dark {
+            background: #1a1a1a;
+            color: #e0e0e0;
+        }
+        
+        body.dark .header {
+            background: #242424;
+            border-bottom-color: #333;
+        }
+        
+        body.dark .header h1 {
+            color: #e0e0e0;
+        }
+        
+        body.dark .nav-link {
+            color: #888;
+        }
+        
+        body.dark .nav-link:hover {
+            background: #333;
+            color: #e0e0e0;
+        }
+        
+        body.dark .content-card {
+            background: #242424;
+            border-color: #333;
+        }
+        
+        body.dark .content-card h3 {
+            color: #e0e0e0;
+        }
+        
+        body.dark .content-card p {
+            color: #888;
+        }
+        
+        body.dark .feature-list {
+            background: #1f1f1f;
+        }
+        
+        body.dark .form-control {
+            background: #242424;
+            border-color: #333;
+            color: #e0e0e0;
+        }
+        
+        body.dark .footer {
+            background: #242424;
+            border-top-color: #333;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <h1>Minimal Theme</h1>
+            <nav class="nav-links">
+                <a href="index.html" class="nav-link home">Homepage</a>
+                <a href="enhanced.html" class="nav-link">Enhanced</a>
+                <a href="position-demo.html" class="nav-link">Position</a>
+                <a href="scroll-demo.html" class="nav-link">Scroll</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero" id="hero">
+            <h2>Clean. Simple. Minimal.</h2>
+            <p>Experience guided tours without distractions. No animations, no effects, just clear and focused guidance.</p>
+            
+            <div class="tour-controls">
+                <button class="tour-btn primary" id="minimal-tour">Start Minimal Tour</button>
+                <button class="tour-btn" id="comparison-tour">Compare Themes</button>
+                <button class="tour-btn" id="dark-minimal-tour">Dark Minimal</button>
+            </div>
+        </section>
+
+        <!-- Content Grid -->
+        <div class="content-grid">
+            <div class="content-card" id="card-1">
+                <h3>No Animations</h3>
+                <p>Every transition is instant and predictable. No bouncing, sliding, or fading effects to distract from your content.</p>
+            </div>
+            
+            <div class="content-card" id="card-2">
+                <h3>Flat Design</h3>
+                <p>Clean borders, subtle shadows, and a focus on typography. The design gets out of the way and lets your content shine.</p>
+            </div>
+            
+            <div class="content-card" id="card-3">
+                <h3>Fast & Efficient</h3>
+                <p>Without complex animations and effects, tours run faster and more efficiently, especially on lower-end devices.</p>
+            </div>
+        </div>
+
+        <!-- Feature List -->
+        <div class="feature-list">
+            <div class="feature-list-content">
+                <h2>Minimal Theme Features</h2>
+                
+                <div class="features">
+                    <div class="feature" id="feature-1">
+                        <div class="feature-icon">⚡</div>
+                        <h4>Instant Transitions</h4>
+                        <p>No waiting for animations to complete</p>
+                    </div>
+                    
+                    <div class="feature" id="feature-2">
+                        <div class="feature-icon">📐</div>
+                        <h4>Geometric Design</h4>
+                        <p>Sharp corners and clean lines</p>
+                    </div>
+                    
+                    <div class="feature" id="feature-3">
+                        <div class="feature-icon">🎯</div>
+                        <h4>Focus on Content</h4>
+                        <p>Nothing to distract from your message</p>
+                    </div>
+                    
+                    <div class="feature" id="feature-4">
+                        <div class="feature-icon">🔋</div>
+                        <h4>Battery Friendly</h4>
+                        <p>No GPU-intensive animations</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form Section -->
+        <div class="form-section" id="contact-form">
+            <h2>Contact Form Example</h2>
+            
+            <form>
+                <div class="form-group">
+                    <label class="form-label" for="name">Name</label>
+                    <input type="text" id="name" class="form-control" placeholder="John Doe">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="email">Email</label>
+                    <input type="email" id="email" class="form-control" placeholder="john@example.com">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="message">Message</label>
+                    <textarea id="message" class="form-control" rows="4" placeholder="Your message..."></textarea>
+                </div>
+                
+                <button type="submit" class="form-submit" id="submit-btn">Send Message</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Minimal Theme - Less is More</p>
+    </footer>
+
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+        <button class="theme-btn active" id="light-btn">Light</button>
+        <button class="theme-btn" id="dark-btn">Dark</button>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module">
+        import GuidedTour from '../src/guided-tour.js';
+        
+        // Theme Toggle
+        const body = document.body;
+        const lightBtn = document.getElementById('light-btn');
+        const darkBtn = document.getElementById('dark-btn');
+        let isDark = false;
+        
+        lightBtn.addEventListener('click', () => {
+            body.classList.remove('dark');
+            lightBtn.classList.add('active');
+            darkBtn.classList.remove('active');
+            isDark = false;
+        });
+        
+        darkBtn.addEventListener('click', () => {
+            body.classList.add('dark');
+            darkBtn.classList.add('active');
+            lightBtn.classList.remove('active');
+            isDark = true;
+        });
+        
+        // Minimal Tour
+        const minimalTour = new GuidedTour({
+            id: 'minimal-tour',
+            steps: [
+                {
+                    element: '#hero',
+                    title: 'Welcome to Minimal Theme',
+                    content: 'This theme focuses on clarity and simplicity. No distracting animations or effects.',
+                    position: 'bottom'
+                },
+                {
+                    element: '#card-1',
+                    title: 'No Animations',
+                    content: 'Notice how the tooltip appears instantly without any fade or slide effects.',
+                    position: 'top'
+                },
+                {
+                    element: '#feature-2',
+                    title: 'Clean Design',
+                    content: 'Simple borders, minimal shadows, and clear typography.',
+                    position: 'bottom'
+                },
+                {
+                    element: '#name',
+                    title: 'Form Elements',
+                    content: 'Even form fields have a clean, minimal style with subtle focus states.',
+                    position: 'right'
+                },
+                {
+                    element: '.theme-toggle',
+                    title: 'Theme Variants',
+                    content: 'Try switching between light and dark modes for different minimal styles.',
+                    position: 'top'
+                }
+            ],
+            overlay: {
+                opacity: 0.3
+            },
+            animation: {
+                enabled: false,
+                duration: 0
+            },
+            highlight: {
+                pulse: false,
+                padding: 4
+            }
+        });
+        
+        // Add minimal class to tour
+        minimalTour.on('start', () => {
+            document.body.classList.add('guided-tour-minimal');
+        });
+        
+        minimalTour.on('stop', () => {
+            document.body.classList.remove('guided-tour-minimal');
+        });
+        
+        // Comparison Tour
+        const comparisonTour = new GuidedTour({
+            id: 'comparison-tour',
+            steps: [
+                {
+                    element: '#hero',
+                    title: 'Default Theme First',
+                    content: 'This tour starts with the default animated theme...',
+                    position: 'bottom'
+                },
+                {
+                    element: '#card-2',
+                    title: 'Notice the Animations',
+                    content: 'See the smooth transitions, shadows, and effects in the default theme.',
+                    position: 'top'
+                },
+                {
+                    element: '#card-3',
+                    title: 'Now Switching to Minimal',
+                    content: 'The next step will use the minimal theme. Notice the difference!',
+                    position: 'top'
+                }
+            ]
+        });
+        
+        // Switch to minimal theme after step 2
+        comparisonTour.on('stepChange', (data) => {
+            if (data.index === 2) {
+                document.body.classList.add('guided-tour-minimal');
+                
+                // Continue with minimal theme
+                setTimeout(() => {
+                    const minimalSteps = new GuidedTour({
+                        steps: [
+                            {
+                                element: '#feature-1',
+                                title: 'Minimal Theme Active',
+                                content: 'Now you see the minimal theme - instant transitions, no effects.',
+                                position: 'bottom'
+                            },
+                            {
+                                element: '#submit-btn',
+                                title: 'Clean and Simple',
+                                content: 'Everything is designed to be clear and distraction-free.',
+                                position: 'top'
+                            }
+                        ],
+                        animation: {
+                            enabled: false
+                        }
+                    });
+                    
+                    minimalSteps.on('stop', () => {
+                        document.body.classList.remove('guided-tour-minimal');
+                    });
+                    
+                    minimalSteps.start();
+                }, 100);
+                
+                comparisonTour.stop();
+            }
+        });
+        
+        // Dark Minimal Tour
+        const darkMinimalTour = new GuidedTour({
+            id: 'dark-minimal-tour',
+            steps: [
+                {
+                    element: '.theme-toggle',
+                    title: 'Enable Dark Mode',
+                    content: 'First, click the Dark button to switch themes.',
+                    position: 'top'
+                },
+                {
+                    element: '#hero',
+                    title: 'Dark Minimal Theme',
+                    content: 'The minimal theme also works great in dark mode with adjusted colors.',
+                    position: 'bottom'
+                },
+                {
+                    element: '.content-card',
+                    title: 'High Contrast',
+                    content: 'Dark backgrounds with light text maintain excellent readability.',
+                    position: 'top'
+                },
+                {
+                    element: '#email',
+                    title: 'Form Inputs',
+                    content: 'Form elements adapt to dark mode while keeping the minimal aesthetic.',
+                    position: 'right'
+                }
+            ],
+            animation: {
+                enabled: false
+            }
+        });
+        
+        // Add minimal class for dark tour
+        darkMinimalTour.on('start', () => {
+            document.body.classList.add('guided-tour-minimal');
+            if (!isDark) {
+                darkBtn.click();
+            }
+        });
+        
+        darkMinimalTour.on('stop', () => {
+            document.body.classList.remove('guided-tour-minimal');
+        });
+        
+        // Button handlers
+        document.getElementById('minimal-tour').addEventListener('click', () => {
+            minimalTour.start();
+        });
+        
+        document.getElementById('comparison-tour').addEventListener('click', () => {
+            comparisonTour.start();
+        });
+        
+        document.getElementById('dark-minimal-tour').addEventListener('click', () => {
+            darkMinimalTour.start();
+        });
+        
+        // Prevent form submission
+        document.querySelector('form').addEventListener('submit', (e) => {
+            e.preventDefault();
+        });
+    </script>
+</body>
+</html>

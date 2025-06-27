@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Tour Test</title>
+    <link rel="stylesheet" href="src/styles/guided-tour.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 50px;
+        }
+        .test-element {
+            padding: 20px;
+            background: #f0f0f0;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="test-header">Test Page</h1>
+    <div class="test-element" id="test1">Test Element 1</div>
+    <div class="test-element" id="test2">Test Element 2</div>
+    <button id="start-test">Start Test Tour</button>
+
+    <script type="module">
+        import GuidedTour from './src/guided-tour.js';
+        
+        // Create a simple test tour
+        const tour = new GuidedTour({
+            steps: [
+                {
+                    element: '#test-header',
+                    title: 'Test Step 1',
+                    content: 'This is the header',
+                    position: 'bottom'
+                },
+                {
+                    element: '#test1',
+                    title: 'Test Step 2',
+                    content: 'This is test element 1',
+                    position: 'right'
+                },
+                {
+                    element: '#test2',
+                    title: 'Test Step 3',
+                    content: 'This is test element 2',
+                    position: 'right'
+                }
+            ]
+        });
+        
+        // Add error logging
+        tour.on('error', (error) => {
+            console.error('Tour error:', error);
+        });
+        
+        tour.on('stepChange', (data) => {
+            console.log('Step changed:', data);
+        });
+        
+        // Start tour on button click
+        document.getElementById('start-test').addEventListener('click', () => {
+            console.log('Starting tour...');
+            tour.start();
+        });
+        
+        // Log that the script loaded
+        console.log('Tour initialized:', tour);
+    </script>
+</body>
+</html>
