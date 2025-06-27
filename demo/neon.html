@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Theme Demo - Guided Tour</title>
+    <link rel="stylesheet" href="../src/styles/guided-tour.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Space Mono', monospace;
+            background: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        /* Cyber grid background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 0, 110, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 0, 110, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+        }
+        
+        /* Header */
+        .header {
+            padding: 20px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header h1 {
+            font-size: 72px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 8px;
+            background: linear-gradient(45deg, #ff006e, #00f5ff, #ff006e);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient-shift 3s ease infinite;
+            filter: drop-shadow(0 0 30px rgba(255, 0, 110, 0.8));
+        }
+        
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 15px;
+        }
+        
+        .nav-link {
+            padding: 10px 20px;
+            background: rgba(20, 20, 20, 0.8);
+            border: 2px solid #8338ec;
+            color: #8338ec;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .nav-link:hover {
+            background: #8338ec;
+            color: #0a0a0a;
+            box-shadow: 
+                0 0 20px #8338ec,
+                0 0 40px #8338ec;
+        }
+        
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+        
+        .hero p {
+            font-size: 24px;
+            margin: 20px 0 40px;
+            color: #00f5ff;
+            text-shadow: 0 0 20px rgba(0, 245, 255, 0.8);
+        }
+        
+        /* Tour buttons */
+        .tour-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 80px;
+        }
+        
+        .tour-btn {
+            padding: 20px;
+            background: rgba(20, 20, 20, 0.8);
+            border: 2px solid;
+            border-radius: 10px;
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+        
+        .tour-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .tour-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .tour-btn span {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .tour-btn.pink {
+            border-color: #ff006e;
+            color: #ff006e;
+        }
+        
+        .tour-btn.pink::before {
+            background: #ff006e;
+        }
+        
+        .tour-btn.pink:hover {
+            color: #0a0a0a;
+            box-shadow: 0 0 30px #ff006e;
+        }
+        
+        .tour-btn.blue {
+            border-color: #00f5ff;
+            color: #00f5ff;
+        }
+        
+        .tour-btn.blue::before {
+            background: #00f5ff;
+        }
+        
+        .tour-btn.blue:hover {
+            color: #0a0a0a;
+            box-shadow: 0 0 30px #00f5ff;
+        }
+        
+        .tour-btn.green {
+            border-color: #06ffa5;
+            color: #06ffa5;
+        }
+        
+        .tour-btn.green::before {
+            background: #06ffa5;
+        }
+        
+        .tour-btn.green:hover {
+            color: #0a0a0a;
+            box-shadow: 0 0 30px #06ffa5;
+        }
+        
+        .tour-btn.yellow {
+            border-color: #ffbe0b;
+            color: #ffbe0b;
+        }
+        
+        .tour-btn.yellow::before {
+            background: #ffbe0b;
+        }
+        
+        .tour-btn.yellow:hover {
+            color: #0a0a0a;
+            box-shadow: 0 0 30px #ffbe0b;
+        }
+        
+        /* Feature Cards */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+        
+        .feature-card {
+            background: rgba(20, 20, 20, 0.6);
+            border: 2px solid;
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+        
+        .feature-card:hover::before {
+            transform: translateX(100%);
+        }
+        
+        .feature-card.pink {
+            border-color: #ff006e;
+        }
+        
+        .feature-card.pink:hover {
+            box-shadow: 
+                0 0 30px #ff006e,
+                inset 0 0 30px rgba(255, 0, 110, 0.2);
+        }
+        
+        .feature-card.blue {
+            border-color: #00f5ff;
+        }
+        
+        .feature-card.blue:hover {
+            box-shadow: 
+                0 0 30px #00f5ff,
+                inset 0 0 30px rgba(0, 245, 255, 0.2);
+        }
+        
+        .feature-card.purple {
+            border-color: #8338ec;
+        }
+        
+        .feature-card.purple:hover {
+            box-shadow: 
+                0 0 30px #8338ec,
+                inset 0 0 30px rgba(131, 56, 236, 0.2);
+        }
+        
+        .feature-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 20px currentColor);
+        }
+        
+        .feature-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .feature-card p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+        
+        /* Form Section */
+        .form-section {
+            max-width: 600px;
+            margin: 0 auto 80px;
+            background: rgba(20, 20, 20, 0.8);
+            border: 2px solid #8338ec;
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 40px rgba(131, 56, 236, 0.3);
+        }
+        
+        .form-section h2 {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            color: #8338ec;
+            text-shadow: 0 0 20px #8338ec;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 10px;
+            color: #00f5ff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 14px;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            background: rgba(10, 10, 10, 0.8);
+            border: 2px solid #00f5ff;
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #ff006e;
+            box-shadow: 
+                0 0 20px #ff006e,
+                inset 0 0 10px rgba(255, 0, 110, 0.2);
+        }
+        
+        .form-submit {
+            width: 100%;
+            padding: 18px;
+            background: transparent;
+            border: 2px solid #06ffa5;
+            border-radius: 10px;
+            color: #06ffa5;
+            font-size: 18px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .form-submit::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: #06ffa5;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .form-submit:hover {
+            color: #0a0a0a;
+            box-shadow: 
+                0 0 30px #06ffa5,
+                inset 0 0 20px #06ffa5;
+        }
+        
+        .form-submit:hover::before {
+            width: 600px;
+            height: 600px;
+        }
+        
+        .form-submit span {
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 2px solid #8338ec;
+            margin-top: 80px;
+        }
+        
+        .footer p {
+            color: #8338ec;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px #8338ec;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <a href="index.html" class="nav-link">Basic</a>
+        <a href="enhanced.html" class="nav-link">Enhanced</a>
+        <a href="minimal.html" class="nav-link">Minimal</a>
+        <a href="position-demo.html" class="nav-link">Position</a>
+        <a href="scroll-demo.html" class="nav-link">Scroll</a>
+    </nav>
+
+    <!-- Header -->
+    <header class="header" id="header">
+        <h1>NEON</h1>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero" id="hero">
+            <p>Experience the future of web tours with glowing neon effects</p>
+            
+            <div class="tour-grid">
+                <button class="tour-btn pink" id="neon-tour">
+                    <span>Neon Tour</span>
+                </button>
+                <button class="tour-btn blue" id="cyber-tour">
+                    <span>Cyber Tour</span>
+                </button>
+                <button class="tour-btn green" id="glow-tour">
+                    <span>Glow Tour</span>
+                </button>
+                <button class="tour-btn yellow" id="retro-tour">
+                    <span>Retro Tour</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Features -->
+        <div class="features">
+            <div class="feature-card pink" id="feature-1">
+                <div class="feature-icon">⚡</div>
+                <h3>Electric Effects</h3>
+                <p>Pulsing glows, neon shadows, and electric animations that capture attention</p>
+            </div>
+            
+            <div class="feature-card blue" id="feature-2">
+                <div class="feature-icon">🌟</div>
+                <h3>Cyberpunk Style</h3>
+                <p>Futuristic design inspired by cyberpunk aesthetics and neon-lit cities</p>
+            </div>
+            
+            <div class="feature-card purple" id="feature-3">
+                <div class="feature-icon">💫</div>
+                <h3>Dynamic Lighting</h3>
+                <p>Dynamic color shifts and glowing borders that react to user interaction</p>
+            </div>
+        </div>
+
+        <!-- Form Section -->
+        <div class="form-section" id="cyber-form">
+            <h2>Cyber Interface</h2>
+            
+            <form>
+                <div class="form-group">
+                    <label class="form-label" for="username">Username</label>
+                    <input type="text" id="username" class="form-control" placeholder="Enter your handle">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="email">Email</label>
+                    <input type="email" id="email" class="form-control" placeholder="user@cyberspace.net">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="access">Access Level</label>
+                    <select id="access" class="form-control">
+                        <option>Guest</option>
+                        <option>User</option>
+                        <option>Admin</option>
+                        <option>Root</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="form-submit" id="submit-btn">
+                    <span>Initialize Connection</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Welcome to the Neon Future</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script type="module">
+        import GuidedTour from '../src/guided-tour.js';
+        
+        // Neon Tour
+        const neonTour = new GuidedTour({
+            id: 'neon-tour',
+            theme: 'neon',
+            steps: [
+                {
+                    element: '#header',
+                    title: 'Welcome to Neon',
+                    content: 'Experience the electrifying glow of neon-styled tours. Notice the pulsing borders and glowing effects!',
+                    position: 'bottom'
+                },
+                {
+                    element: '#feature-1',
+                    title: 'Electric Effects',
+                    content: 'Each element glows with vibrant neon colors. The highlight pulses with energy!',
+                    position: 'top'
+                },
+                {
+                    element: '#username',
+                    title: 'Cyber Interface',
+                    content: 'Form inputs glow when focused. Try typing to see the neon effect!',
+                    position: 'right'
+                },
+                {
+                    element: '#submit-btn',
+                    title: 'Glowing Actions',
+                    content: 'Buttons have ripple effects with neon glow. Hover to see the energy flow!',
+                    position: 'top'
+                },
+                {
+                    element: '.guided-tour-toggle',
+                    title: 'Neon Toggle',
+                    content: 'Even the toggle button glows with purple neon light. Click anytime to restart!',
+                    position: 'left'
+                }
+            ]
+        });
+        
+        // Cyber Tour
+        const cyberTour = new GuidedTour({
+            id: 'cyber-tour',
+            theme: 'neon',
+            steps: [
+                {
+                    element: '#hero',
+                    title: 'Digital Frontier',
+                    content: 'Welcome to the cyber realm where data flows like neon rivers.',
+                    position: 'bottom'
+                },
+                {
+                    element: '#feature-2',
+                    title: 'Cyberpunk Aesthetics',
+                    content: 'Inspired by the neon-lit streets of a digital future.',
+                    position: 'top'
+                },
+                {
+                    element: '#cyber-form',
+                    title: 'System Access',
+                    content: 'Interface with the mainframe through this glowing terminal.',
+                    position: 'top'
+                }
+            ],
+            animation: {
+                duration: 500
+            }
+        });
+        
+        // Glow Tour
+        const glowTour = new GuidedTour({
+            id: 'glow-tour',
+            theme: 'neon',
+            steps: [
+                {
+                    element: '.tour-grid',
+                    title: 'Control Matrix',
+                    content: 'Each button pulses with its own unique energy signature.',
+                    position: 'bottom'
+                },
+                {
+                    element: '#feature-3',
+                    title: 'Dynamic Lighting',
+                    content: 'Watch how elements react and glow as you interact with them.',
+                    position: 'top'
+                },
+                {
+                    element: '#access',
+                    title: 'Access Levels',
+                    content: 'Select your clearance level in the system.',
+                    position: 'left'
+                }
+            ],
+            highlight: {
+                padding: 20,
+                shape: 'auto'
+            }
+        });
+        
+        // Retro Tour
+        const retroTour = new GuidedTour({
+            id: 'retro-tour',
+            theme: 'neon',
+            steps: [
+                {
+                    element: '.features',
+                    title: '80s Retrowave',
+                    content: 'Bringing back the aesthetic of vintage arcade games and neon signs.',
+                    position: 'top'
+                },
+                {
+                    element: '.footer',
+                    title: 'End of Line',
+                    content: 'Thanks for exploring the neon future with us!',
+                    position: 'top'
+                }
+            ]
+        });
+        
+        // Button handlers
+        document.getElementById('neon-tour').addEventListener('click', () => {
+            neonTour.start();
+        });
+        
+        document.getElementById('cyber-tour').addEventListener('click', () => {
+            cyberTour.start();
+        });
+        
+        document.getElementById('glow-tour').addEventListener('click', () => {
+            glowTour.start();
+        });
+        
+        document.getElementById('retro-tour').addEventListener('click', () => {
+            retroTour.start();
+        });
+        
+        // Prevent form submission
+        document.querySelector('form').addEventListener('submit', (e) => {
+            e.preventDefault();
+        });
+        
+        // Start neon tour after a delay
+        setTimeout(() => {
+            neonTour.start();
+        }, 1000);
+    </script>
+</body>
+</html>

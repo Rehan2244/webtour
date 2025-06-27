@@ -707,3 +707,7 @@
     opacity: 0;
   }
 }
+
+/* Import themes */
+@import './minimal-theme.css';
+@import './neon-theme.css';

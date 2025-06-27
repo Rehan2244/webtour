@@ -504,6 +504,7 @@
         // Minimal Tour
         const minimalTour = new GuidedTour({
             id: 'minimal-tour',
+            theme: 'minimal',
             steps: [
                 {
                     element: '#hero',
@@ -549,15 +550,6 @@
             }
         });
         
-        // Add minimal class to tour
-        minimalTour.on('start', () => {
-            document.body.classList.add('guided-tour-minimal');
-        });
-        
-        minimalTour.on('stop', () => {
-            document.body.classList.remove('guided-tour-minimal');
-        });
-        
         // Comparison Tour
         const comparisonTour = new GuidedTour({
             id: 'comparison-tour',
@@ -591,6 +583,7 @@
                 // Continue with minimal theme
                 setTimeout(() => {
                     const minimalSteps = new GuidedTour({
+                        theme: 'minimal',
                         steps: [
                             {
                                 element: '#feature-1',
@@ -610,10 +603,6 @@
                         }
                     });
                     
-                    minimalSteps.on('stop', () => {
-                        document.body.classList.remove('guided-tour-minimal');
-                    });
-                    
                     minimalSteps.start();
                 }, 100);
                 
@@ -624,6 +613,7 @@
         // Dark Minimal Tour
         const darkMinimalTour = new GuidedTour({
             id: 'dark-minimal-tour',
+            theme: 'minimal-dark',
             steps: [
                 {
                     element: '.theme-toggle',
@@ -655,16 +645,11 @@
             }
         });
         
-        // Add minimal class for dark tour
+        // Ensure dark mode is enabled for dark tour
         darkMinimalTour.on('start', () => {
-            document.body.classList.add('guided-tour-minimal');
             if (!isDark) {
                 darkBtn.click();
             }
-        });
-        
-        darkMinimalTour.on('stop', () => {
-            document.body.classList.remove('guided-tour-minimal');
         });
         
         // Button handlers

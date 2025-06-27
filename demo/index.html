@@ -45,7 +45,7 @@
             padding: 0;
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 900;
         }
         
         .nav ul {
@@ -429,27 +429,114 @@ tour.start();</code></pre>
         <p>&copy; 2024 Guided Tour Library. Built with ❤️ for better user experiences.</p>
     </footer>
 
-    <!-- Navigation to Enhanced Demo -->
-    <div style="position: fixed; top: 20px; right: 20px; z-index: 1000;">
+    <!-- Navigation Menu -->
+    <div style="position: fixed; top: 20px; right: 20px; z-index: 1000; display: flex; gap: 10px; flex-wrap: wrap; justify-content: flex-end;">
         <a href="enhanced.html" style="
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            padding: 12px 24px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            gap: 6px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
             text-decoration: none;
-            border-radius: 50px;
+            border-radius: 25px;
             font-weight: 600;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            font-size: 14px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
             transition: all 0.3s ease;
-            animation: pulse 2s infinite;
-        " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 10px 15px -3px rgba(0, 0, 0, 0.2)'" 
-           onmouseout="this.style.transform=''; this.style.boxShadow='0 4px 6px -1px rgba(0, 0, 0, 0.1)'">
+        " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(102, 126, 234, 0.6)'" 
+           onmouseout="this.style.transform=''; this.style.boxShadow='0 4px 15px rgba(102, 126, 234, 0.4)'">
             <span>✨</span>
-            <span>Try Enhanced Version</span>
+            <span>Enhanced</span>
+        </a>
+        <a href="minimal.html" style="
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 20px;
+            background: #f8f9fa;
+            color: #2c3e50;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 14px;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+        " onmouseover="this.style.transform='translateY(-2px)'; this.style.borderColor='#2c3e50'" 
+           onmouseout="this.style.transform=''; this.style.borderColor='#e9ecef'">
+            <span>⬜</span>
+            <span>Minimal</span>
+        </a>
+        <a href="neon.html" style="
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 20px;
+            background: #0a0a0a;
+            color: #ff006e;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 14px;
+            border: 2px solid #ff006e;
+            box-shadow: 0 0 20px rgba(255, 0, 110, 0.5);
+            transition: all 0.3s ease;
+            animation: neon-pulse-btn 2s ease-in-out infinite;
+        " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 0 30px rgba(255, 0, 110, 0.8)'" 
+           onmouseout="this.style.transform=''; this.style.boxShadow='0 0 20px rgba(255, 0, 110, 0.5)'">
+            <span>💫</span>
+            <span>Neon</span>
+        </a>
+        <a href="position-demo.html" style="
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 20px;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 14px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 8px rgba(0, 0, 0, 0.15)'" 
+           onmouseout="this.style.transform=''; this.style.boxShadow='0 2px 4px rgba(0, 0, 0, 0.1)'">
+            <span>📍</span>
+            <span>Position</span>
+        </a>
+        <a href="scroll-demo.html" style="
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 20px;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 14px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 8px rgba(0, 0, 0, 0.15)'" 
+           onmouseout="this.style.transform=''; this.style.boxShadow='0 2px 4px rgba(0, 0, 0, 0.1)'">
+            <span>📜</span>
+            <span>Scroll</span>
         </a>
     </div>
+    
+    <style>
+        @keyframes neon-pulse-btn {
+            0%, 100% {
+                border-color: #ff006e;
+                color: #ff006e;
+            }
+            50% {
+                border-color: #00f5ff;
+                color: #00f5ff;
+            }
+        }
+    </style>
 
     <!-- Include the library -->
     <script type="module">
@@ -480,24 +567,6 @@ tour.start();</code></pre>
                     content: 'This is where you introduce your product or service. Notice how the tour highlights each element!',
                     position: 'top'
                 },
-                {
-                    element: '#feature-1',
-                    title: 'Smart Features',
-                    content: 'Each feature card showcases a key capability of the library. The tour automatically scrolls to bring elements into view.',
-                    position: 'right'
-                },
-                {
-                    element: '#search',
-                    title: 'Interactive Elements',
-                    content: 'You can still interact with highlighted elements during the tour. Try typing in this search box!',
-                    position: 'top'
-                },
-                {
-                    element: '.guided-tour-toggle',
-                    title: 'Toggle Button',
-                    content: 'This floating button lets users restart the tour anytime. It can be positioned anywhere on the screen.',
-                    position: 'left'
-                }
             ]
         });
         

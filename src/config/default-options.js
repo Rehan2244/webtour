@@ -2,7 +2,7 @@ export const defaultOptions = {
   id: 'default-tour',
   steps: [],
   
-  theme: 'light',
+  theme: 'light', // 'light', 'dark', 'minimal', 'minimal-dark', 'neon'
   
   animation: {
     enabled: true,

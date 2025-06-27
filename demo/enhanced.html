@@ -427,7 +427,55 @@
             <span>📜</span>
             <span>Scroll Demo</span>
         </a>
+        <a href="minimal.html" style="
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        " onmouseover="this.style.transform='translateX(-5px)'" 
+           onmouseout="this.style.transform=''">
+            <span>⬜</span>
+            <span>Minimal Theme</span>
+        </a>
+        <a href="neon.html" style="
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: linear-gradient(45deg, #ff006e, #00f5ff);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 0 20px rgba(255, 0, 110, 0.5);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            animation: neon-glow 2s ease-in-out infinite;
+        " onmouseover="this.style.transform='translateX(-5px) scale(1.05)'" 
+           onmouseout="this.style.transform='translateX(-5px)'">
+            <span>💫</span>
+            <span>Neon Theme</span>
+        </a>
     </div>
+    
+    <style>
+        @keyframes neon-glow {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(255, 0, 110, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 30px rgba(0, 245, 255, 0.7);
+            }
+        }
+    </style>
 
     <!-- Hero Section -->
     <section class="hero" id="hero">

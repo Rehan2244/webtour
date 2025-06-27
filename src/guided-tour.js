@@ -37,9 +37,25 @@ class GuidedTour extends EventEmitter {
     // Set up event listeners
     this._setupEventListeners();
     
+    // Apply theme
+    this._applyTheme();
+    
     // Restore state if persistence is enabled
     if (this.options.persistence.enabled) {
       this._restoreState();
+    }
+  }
+  
+  _applyTheme() {
+    const themeClasses = {
+      'minimal': 'guided-tour-minimal',
+      'minimal-dark': 'guided-tour-minimal guided-tour-minimal-dark',
+      'dark': 'guided-tour-dark',
+      'neon': 'guided-tour-neon'
+    };
+    
+    if (themeClasses[this.options.theme]) {
+      this.themeClass = themeClasses[this.options.theme];
     }
   }
   
@@ -90,6 +106,11 @@ class GuidedTour extends EventEmitter {
     this.isActive = true;
     this.currentStepIndex = 0;
     
+    // Apply theme class if set
+    if (this.themeClass) {
+      document.body.classList.add(...this.themeClass.split(' '));
+    }
+    
     this.emit('start', { totalSteps: this.steps.length });
     
     this.overlay.show();
@@ -102,6 +123,11 @@ class GuidedTour extends EventEmitter {
     
     this.isActive = false;
     this.currentStepIndex = -1;
+    
+    // Remove theme class if set
+    if (this.themeClass) {
+      document.body.classList.remove(...this.themeClass.split(' '));
+    }
     
     this.emit('stop');
     
@@ -224,8 +250,8 @@ class GuidedTour extends EventEmitter {
         step: index + 1,
         total: this.steps.length,
         showPrevious: index > 0,
-        showNext: index < this.steps.length - 1,
-        nextLabel: index === this.steps.length - 1 ? 'Finish' : 'Next'
+        showNext: true, // Always show next button
+        nextLabel: index === this.steps.length - 1 ? 'End Tour' : 'Next'
       });
       
       // Position and show tooltip

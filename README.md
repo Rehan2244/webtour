@@ -6,11 +6,14 @@ A lightweight, customizable JavaScript library for creating interactive guided t
 
 - 🎯 **Smart Element Targeting** - Target any HTML element using CSS selectors
 - ✨ **Smooth Animations** - Beautiful transitions and highlight effects
-- 🎨 **Customizable Themes** - Light/dark themes with full customization
+- 🎨 **Multiple Themes** - Light, dark, minimal, and neon themes with full customization
 - 📱 **Mobile Responsive** - Works perfectly on all devices
 - ⚡ **Lightweight** - No dependencies, minimal footprint
 - ♿ **Accessible** - Keyboard navigation and screen reader support
 - 🔧 **Easy Integration** - Simple API with extensive configuration options
+- 📍 **Smart Positioning** - Tooltips stay in viewport with customizable anchoring
+- 📜 **Scroll Behaviors** - Reposition, hide, or fix tooltips during scroll
+- ⬜ **Minimal Mode** - Clean, distraction-free tours without animations
 
 ## Quick Start
 
@@ -68,7 +71,7 @@ new GuidedTour({
   steps: [...],               // Array of tour steps
   
   // Theme
-  theme: 'light',             // 'light', 'dark', or 'custom'
+  theme: 'light',             // 'light', 'dark', 'minimal', 'minimal-dark', 'neon'
   
   // Animation settings
   animation: {
@@ -177,10 +180,31 @@ Each step in the tour can have the following properties:
 
 ## Advanced Usage
 
-### Custom Themes
+### Theme Options
 
 ```javascript
-// Add custom CSS
+// Minimal theme - no animations, clean design
+const minimalTour = new GuidedTour({
+  theme: 'minimal',
+  steps: [...],
+  animation: {
+    enabled: false
+  }
+});
+
+// Dark minimal theme
+const darkMinimalTour = new GuidedTour({
+  theme: 'minimal-dark',
+  steps: [...]
+});
+
+// Neon theme - cyberpunk style with glowing effects
+const neonTour = new GuidedTour({
+  theme: 'neon',
+  steps: [...]
+});
+
+// Custom theme
 const style = document.createElement('style');
 style.textContent = `
   .guided-tour-tooltip {
@@ -194,8 +218,7 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-// Use custom theme
-const tour = new GuidedTour({
+const customTour = new GuidedTour({
   theme: 'custom',
   steps: [...]
 });
