@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Scoped styles for React Guided Tour to avoid conflicts */
+.rgt-wrapper {
+  @apply rgt-relative;
+}
+
+/* Override HeroUI component styles if needed */
+.rgt-wrapper [class*="heroui"] {
+  /* Ensure proper isolation */
+}

@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scroll Behavior Demo - Guided Tour</title>
+    <link rel="stylesheet" href="../src/styles/guided-tour.css">
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f5f5f5;
+        }
+        
+        .header {
+            position: sticky;
+            top: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        h1 {
+            margin: 0;
+            text-align: center;
+        }
+        
+        .controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        
+        .control-btn {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .control-btn.active {
+            background: rgba(255, 255, 255, 0.4);
+        }
+        
+        .content-section {
+            background: white;
+            padding: 60px;
+            margin: 40px 0;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .content-section h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+        
+        .demo-element {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            padding: 30px;
+            margin: 20px 0;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .demo-element:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+        
+        .sticky-element {
+            position: sticky;
+            top: 100px;
+            background: #e74c3c;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .fixed-sidebar {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            width: 200px;
+            z-index: 90;
+        }
+        
+        .fixed-sidebar h3 {
+            margin-top: 0;
+        }
+        
+        .sidebar-item {
+            background: #f0f0f0;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar-item:hover {
+            background: #667eea;
+            color: white;
+        }
+        
+        .long-content {
+            height: 800px;
+            background: linear-gradient(to bottom, #f0f0f0, #ffffff);
+            padding: 40px;
+            border-radius: 10px;
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #666;
+        }
+        
+        .scroll-indicator {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            z-index: 90;
+        }
+        
+        @media (max-width: 768px) {
+            .fixed-sidebar {
+                display: none;
+            }
+            
+            .content-section {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Scroll Behavior Demo</h1>
+        <div class="controls">
+            <button class="control-btn" id="reposition-tour">Reposition Mode (Default)</button>
+            <button class="control-btn" id="hide-tour">Hide Mode</button>
+            <button class="control-btn" id="fixed-tour">Fixed Mode</button>
+            <button class="control-btn" id="long-scroll-tour">Long Scroll Tour</button>
+        </div>
+    </div>
+    
+    <div class="fixed-sidebar">
+        <h3>Quick Navigation</h3>
+        <div class="sidebar-item" id="sidebar-1">Section 1</div>
+        <div class="sidebar-item" id="sidebar-2">Section 2</div>
+        <div class="sidebar-item" id="sidebar-3">Section 3</div>
+        <div class="sidebar-item" id="sidebar-4">Section 4</div>
+    </div>
+    
+    <div class="container">
+        <div class="content-section">
+            <h2>Understanding Scroll Behaviors</h2>
+            <p>This demo showcases three different tooltip scroll behaviors:</p>
+            <ul>
+                <li><strong>Reposition Mode:</strong> Tooltip follows the target element as you scroll</li>
+                <li><strong>Hide Mode:</strong> Tooltip hides when target element goes out of viewport</li>
+                <li><strong>Fixed Mode:</strong> Tooltip stays fixed on screen regardless of scroll</li>
+            </ul>
+        </div>
+        
+        <div class="demo-element" id="demo-1">
+            Element 1 - At the Top
+        </div>
+        
+        <div class="long-content">
+            <p>Scroll down to see how tooltips behave...</p>
+        </div>
+        
+        <div class="demo-element" id="demo-2">
+            Element 2 - In the Middle
+        </div>
+        
+        <div class="sticky-element" id="sticky-demo">
+            Sticky Element - Stays in View
+        </div>
+        
+        <div class="long-content">
+            <p>Keep scrolling to test different behaviors...</p>
+        </div>
+        
+        <div class="demo-element" id="demo-3">
+            Element 3 - Further Down
+        </div>
+        
+        <div class="content-section">
+            <h2 id="section-anchor">Important Section</h2>
+            <p>This section contains important information that might be highlighted during a tour.</p>
+            <div class="demo-element" id="demo-4">
+                Element 4 - Inside Section
+            </div>
+        </div>
+        
+        <div class="long-content">
+            <p>Almost at the bottom...</p>
+        </div>
+        
+        <div class="demo-element" id="demo-5">
+            Element 5 - Near Bottom
+        </div>
+        
+        <div class="content-section">
+            <h2>End of Page</h2>
+            <p>You've reached the end. Try the different scroll modes to see how they handle long pages!</p>
+        </div>
+    </div>
+    
+    <div class="scroll-indicator" id="scroll-indicator">
+        Scroll Position: <span id="scroll-pos">0</span>px
+    </div>
+
+    <script type="module">
+        import GuidedTour from '../src/guided-tour.js';
+        
+        // Update scroll indicator
+        const updateScrollIndicator = () => {
+            document.getElementById('scroll-pos').textContent = window.scrollY;
+        };
+        window.addEventListener('scroll', updateScrollIndicator);
+        updateScrollIndicator();
+        
+        // Reposition Mode Tour (Default)
+        const repositionTour = new GuidedTour({
+            id: 'reposition-tour',
+            steps: [
+                {
+                    element: '#demo-1',
+                    title: 'Reposition Mode',
+                    content: 'In this mode, the tooltip follows the element as you scroll. Try scrolling now!',
+                    position: 'right'
+                },
+                {
+                    element: '#demo-2',
+                    title: 'Smooth Following',
+                    content: 'Notice how the tooltip smoothly repositions itself to stay with the element.',
+                    position: 'left'
+                },
+                {
+                    element: '#sticky-demo',
+                    title: 'Sticky Elements',
+                    content: 'Even with sticky elements, the tooltip adjusts its position correctly.',
+                    position: 'bottom'
+                },
+                {
+                    element: '#demo-4',
+                    title: 'Nested Elements',
+                    content: 'The tooltip works perfectly with elements inside sections too.',
+                    position: 'top'
+                }
+            ],
+            tooltip: {
+                scrollBehavior: 'reposition'
+            }
+        });
+        
+        // Hide Mode Tour
+        const hideTour = new GuidedTour({
+            id: 'hide-tour',
+            steps: [
+                {
+                    element: '#demo-1',
+                    title: 'Hide Mode',
+                    content: 'In this mode, the tooltip will fade out when you scroll the element out of view.',
+                    position: 'right'
+                },
+                {
+                    element: '#demo-3',
+                    title: 'Reappearing Tooltip',
+                    content: 'When you scroll back to the element, the tooltip reappears!',
+                    position: 'left'
+                },
+                {
+                    element: '#demo-5',
+                    title: 'Visibility Control',
+                    content: 'This is useful when you want users to focus on visible content only.',
+                    position: 'top'
+                }
+            ],
+            tooltip: {
+                scrollBehavior: 'hide'
+            }
+        });
+        
+        // Fixed Mode Tour
+        const fixedTour = new GuidedTour({
+            id: 'fixed-tour',
+            steps: [
+                {
+                    element: '#demo-1',
+                    title: 'Fixed Mode',
+                    content: 'In fixed mode, the tooltip stays in a fixed position on screen. Scroll to see!',
+                    position: 'bottom'
+                },
+                {
+                    element: '#demo-2',
+                    title: 'Always Visible',
+                    content: 'The tooltip remains visible even when the target element scrolls away.',
+                    position: 'right'
+                },
+                {
+                    element: '#section-anchor',
+                    title: 'Section Headers',
+                    content: 'Fixed mode is great for explaining sections while users explore.',
+                    position: 'bottom'
+                },
+                {
+                    element: '#demo-5',
+                    title: 'Long Page Navigation',
+                    content: 'Users can read the tooltip while scrolling to find the element.',
+                    position: 'top'
+                }
+            ],
+            tooltip: {
+                scrollBehavior: 'fixed'
+            }
+        });
+        
+        // Long Scroll Tour
+        const longScrollTour = new GuidedTour({
+            id: 'long-scroll',
+            steps: [
+                {
+                    element: '#demo-1',
+                    title: 'Start at the Top',
+                    content: 'This tour will take you through the entire page with auto-scrolling.',
+                    position: 'bottom'
+                },
+                {
+                    element: '#sidebar-2',
+                    title: 'Fixed Elements',
+                    content: 'Even fixed sidebar elements can be part of the tour.',
+                    position: 'left'
+                },
+                {
+                    element: '#demo-3',
+                    title: 'Auto Scroll',
+                    content: 'The page automatically scrolls to bring each element into view.',
+                    position: 'right'
+                },
+                {
+                    element: '#demo-5',
+                    title: 'Bottom Elements',
+                    content: 'Elements at the bottom of long pages are handled smoothly.',
+                    position: 'top'
+                },
+                {
+                    element: '.scroll-indicator',
+                    title: 'Scroll Indicator',
+                    content: 'You can see the scroll position updating in real-time.',
+                    position: 'top'
+                }
+            ],
+            animation: {
+                duration: 600
+            }
+        });
+        
+        // Button handlers
+        document.getElementById('reposition-tour').addEventListener('click', function() {
+            document.querySelectorAll('.control-btn').forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+            repositionTour.start();
+        });
+        
+        document.getElementById('hide-tour').addEventListener('click', function() {
+            document.querySelectorAll('.control-btn').forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+            hideTour.start();
+        });
+        
+        document.getElementById('fixed-tour').addEventListener('click', function() {
+            document.querySelectorAll('.control-btn').forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+            fixedTour.start();
+        });
+        
+        document.getElementById('long-scroll-tour').addEventListener('click', function() {
+            document.querySelectorAll('.control-btn').forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+            longScrollTour.start();
+        });
+        
+        // Sidebar navigation
+        document.getElementById('sidebar-1').addEventListener('click', () => {
+            document.getElementById('demo-1').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+        
+        document.getElementById('sidebar-2').addEventListener('click', () => {
+            document.getElementById('demo-2').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+        
+        document.getElementById('sidebar-3').addEventListener('click', () => {
+            document.getElementById('demo-3').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+        
+        document.getElementById('sidebar-4').addEventListener('click', () => {
+            document.getElementById('demo-5').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+    </script>
+</body>
+</html>

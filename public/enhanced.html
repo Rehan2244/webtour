@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Guided Tour Demo - Beautiful Animations & Themes</title>
+    <link rel="stylesheet" href="../src/styles/guided-tour.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #1f2937;
+            background: #f9fafb;
+            transition: all 0.3s ease;
+        }
+        
+        body.dark-mode {
+            background: #111827;
+            color: #f9fafb;
+        }
+        
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            border: none;
+            border-radius: 50px;
+            padding: 12px 24px;
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .theme-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255, 255, 255, 0.05) 10px,
+                rgba(255, 255, 255, 0.05) 20px
+            );
+            animation: slide 20s linear infinite;
+        }
+        
+        @keyframes slide {
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(50px, 50px);
+            }
+        }
+        
+        .hero-content {
+            text-align: center;
+            color: white;
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+        
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+            animation: fadeInUp 1s ease;
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            opacity: 0.95;
+            animation: fadeInUp 1s ease 0.2s backwards;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Button Grid */
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .demo-btn {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .demo-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .demo-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .demo-btn:active::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 100px 20px;
+            background: white;
+            transition: all 0.3s ease;
+        }
+        
+        body.dark-mode .features {
+            background: #1f2937;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background: #f9fafb;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        body.dark-mode .feature-card {
+            background: #374151;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover::before {
+            transform: translateX(0);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            color: white;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .feature-card p {
+            color: #6b7280;
+            line-height: 1.8;
+        }
+        
+        body.dark-mode .feature-card p {
+            color: #9ca3af;
+        }
+        
+        /* Interactive Elements */
+        .interactive-section {
+            padding: 100px 20px;
+            background: linear-gradient(135deg, #fdf4ff 0%, #fdf4ff 100%);
+            transition: all 0.3s ease;
+        }
+        
+        body.dark-mode .interactive-section {
+            background: #111827;
+        }
+        
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        body.dark-mode .form-container {
+            background: #1f2937;
+        }
+        
+        .form-group {
+            margin-bottom: 30px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #374151;
+        }
+        
+        body.dark-mode .form-group label {
+            color: #e5e7eb;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 14px 20px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        body.dark-mode .form-control {
+            background: #374151;
+            border-color: #4b5563;
+            color: white;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" id="theme-toggle">
+        <span>🌙</span>
+        <span>Dark Mode</span>
+    </button>
+    
+    <!-- Navigation Links -->
+    <div style="position: fixed; top: 80px; right: 20px; z-index: 1000; display: flex; flex-direction: column; gap: 10px;">
+        <a href="index.html" style="
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        " onmouseover="this.style.transform='translateX(-5px)'" 
+           onmouseout="this.style.transform=''">
+            <span>🏠</span>
+            <span>Basic Demo</span>
+        </a>
+        <a href="position-demo.html" style="
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        " onmouseover="this.style.transform='translateX(-5px)'" 
+           onmouseout="this.style.transform=''">
+            <span>📍</span>
+            <span>Position Demo</span>
+        </a>
+        <a href="scroll-demo.html" style="
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        " onmouseover="this.style.transform='translateX(-5px)'" 
+           onmouseout="this.style.transform=''">
+            <span>📜</span>
+            <span>Scroll Demo</span>
+        </a>
+        <a href="minimal.html" style="
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        " onmouseover="this.style.transform='translateX(-5px)'" 
+           onmouseout="this.style.transform=''">
+            <span>⬜</span>
+            <span>Minimal Theme</span>
+        </a>
+        <a href="neon.html" style="
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: linear-gradient(45deg, #ff006e, #00f5ff);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 0 20px rgba(255, 0, 110, 0.5);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            animation: neon-glow 2s ease-in-out infinite;
+        " onmouseover="this.style.transform='translateX(-5px) scale(1.05)'" 
+           onmouseout="this.style.transform='translateX(-5px)'">
+            <span>💫</span>
+            <span>Neon Theme</span>
+        </a>
+    </div>
+    
+    <style>
+        @keyframes neon-glow {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(255, 0, 110, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 30px rgba(0, 245, 255, 0.7);
+            }
+        }
+    </style>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <h1 id="hero-title">Enhanced Guided Tours</h1>
+            <p id="hero-subtitle">Experience beautiful animations, smooth transitions, and elegant themes</p>
+            
+            <div class="button-grid">
+                <button class="demo-btn" id="animated-tour">✨ Animated Tour</button>
+                <button class="demo-btn" id="glassmorphism-tour">🔮 Glassmorphism Tour</button>
+                <button class="demo-btn" id="dark-theme-tour">🌙 Dark Theme Tour</button>
+                <button class="demo-btn" id="custom-animations">🎨 Custom Animations</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">Premium Features</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card" id="feature-animations">
+                    <div class="feature-icon">✨</div>
+                    <h3>60+ Animations</h3>
+                    <p>Choose from a wide variety of entrance and exit animations including bounce, slide, fade, flip, and more.</p>
+                </div>
+                
+                <div class="feature-card" id="feature-themes">
+                    <div class="feature-icon">🎨</div>
+                    <h3>Custom Themes</h3>
+                    <p>Light, dark, and custom themes with CSS variables for complete control over the appearance.</p>
+                </div>
+                
+                <div class="feature-card" id="feature-effects">
+                    <div class="feature-icon">💫</div>
+                    <h3>Visual Effects</h3>
+                    <p>Glassmorphism, gradients, shadows, and modern design patterns for stunning visual appeal.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Section -->
+    <section class="interactive-section" id="interactive">
+        <div class="container">
+            <h2 class="section-title">Try It Yourself</h2>
+            
+            <div class="form-container" id="demo-form">
+                <form>
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" class="form-control" placeholder="John Doe">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" class="form-control" placeholder="john@example.com">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="animation">Favorite Animation</label>
+                        <select id="animation" class="form-control">
+                            <option>Fade In</option>
+                            <option>Slide Up</option>
+                            <option>Bounce</option>
+                            <option>Scale</option>
+                            <option>Flip</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn" id="submit-btn">Start Your Journey</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scripts -->
+    <script type="module">
+        import GuidedTour from '../src/guided-tour.js';
+        
+        // Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+        let isDarkMode = false;
+        
+        themeToggle.addEventListener('click', () => {
+            isDarkMode = !isDarkMode;
+            body.classList.toggle('dark-mode');
+            themeToggle.innerHTML = isDarkMode 
+                ? '<span>☀️</span><span>Light Mode</span>' 
+                : '<span>🌙</span><span>Dark Mode</span>';
+        });
+        
+        // Animated Tour
+        const animatedTour = new GuidedTour({
+            id: 'animated-tour',
+            steps: [
+                {
+                    element: '#hero-title',
+                    title: 'Welcome to Enhanced Tours! 🎉',
+                    content: 'Experience the new animations and effects. Notice the smooth transitions and beautiful styling.',
+                    position: 'bottom'
+                },
+                {
+                    element: '#theme-toggle',
+                    title: 'Theme Switcher 🎨',
+                    content: 'Try toggling between light and dark modes. The tour adapts to your theme preference!',
+                    position: 'left'
+                },
+                {
+                    element: '#feature-animations',
+                    title: 'Rich Animations 💫',
+                    content: 'Over 60 different animation effects to choose from. Each step can have its own unique entrance.',
+                    position: 'top'
+                }
+            ],
+            animation: {
+                duration: 400,
+                easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+            },
+            highlight: {
+                pulse: true,
+                padding: 15
+            }
+        });
+        
+        // Glassmorphism Tour
+        const glassmorphismTour = new GuidedTour({
+            id: 'glass-tour',
+            steps: [
+                {
+                    element: '.hero',
+                    title: 'Glassmorphism Design 🔮',
+                    content: 'Modern glass-like effects with backdrop blur and transparency for a premium feel.',
+                    position: 'center'
+                },
+                {
+                    element: '.demo-btn',
+                    title: 'Interactive Buttons 🎯',
+                    content: 'Buttons with ripple effects and smooth hover animations. Try hovering over them!',
+                    position: 'bottom'
+                },
+                {
+                    element: '.feature-card',
+                    title: 'Card Hover Effects ✨',
+                    content: 'Cards lift up on hover with animated borders. Modern and engaging!',
+                    position: 'top'
+                }
+            ],
+            theme: isDarkMode ? 'dark' : 'light'
+        });
+        
+        // Dark Theme Tour
+        const darkThemeTour = new GuidedTour({
+            id: 'dark-tour',
+            steps: [
+                {
+                    element: '#theme-toggle',
+                    title: 'Enable Dark Mode First 🌙',
+                    content: 'Click this button to switch to dark mode and see how the tour adapts.',
+                    position: 'left'
+                },
+                {
+                    element: '.features',
+                    title: 'Dark Theme Support 🌚',
+                    content: 'All components automatically adapt to dark mode with carefully chosen colors.',
+                    position: 'top'
+                },
+                {
+                    element: '#demo-form',
+                    title: 'Form Styling 📝',
+                    content: 'Even form elements look great in dark mode with proper contrast ratios.',
+                    position: 'top'
+                }
+            ],
+            theme: 'dark'
+        });
+        
+        // Custom Animations Tour
+        const customAnimationsTour = new GuidedTour({
+            id: 'custom-tour',
+            steps: [
+                {
+                    element: '#feature-effects',
+                    title: 'Visual Effects Gallery 🎨',
+                    content: 'This tour showcases different animation styles. Watch how each tooltip appears!',
+                    position: 'top',
+                    animation: 'bounce'
+                },
+                {
+                    element: '#name',
+                    title: 'Slide Animation 📥',
+                    content: 'This tooltip slides in from the bottom. Smooth and elegant!',
+                    position: 'right',
+                    animation: 'slide'
+                },
+                {
+                    element: '#animation',
+                    title: 'Scale Effect 🔍',
+                    content: 'This one scales up from a small size. Great for drawing attention!',
+                    position: 'left',
+                    animation: 'scale'
+                },
+                {
+                    element: '#submit-btn',
+                    title: 'Fade In Effect 👻',
+                    content: 'A classic fade in animation. Simple but effective!',
+                    position: 'top',
+                    animation: 'fade'
+                }
+            ],
+            animation: {
+                duration: 600
+            }
+        });
+        
+        // Button Event Listeners
+        document.getElementById('animated-tour').addEventListener('click', () => {
+            animatedTour.start();
+        });
+        
+        document.getElementById('glassmorphism-tour').addEventListener('click', () => {
+            glassmorphismTour.start();
+        });
+        
+        document.getElementById('dark-theme-tour').addEventListener('click', () => {
+            if (!isDarkMode) {
+                alert('Please enable dark mode first for the best experience!');
+                themeToggle.click();
+            }
+            setTimeout(() => darkThemeTour.start(), 500);
+        });
+        
+        document.getElementById('custom-animations').addEventListener('click', () => {
+            customAnimationsTour.start();
+        });
+        
+        // Prevent form submission
+        document.querySelector('form').addEventListener('submit', (e) => {
+            e.preventDefault();
+        });
+    </script>
+</body>
+</html>

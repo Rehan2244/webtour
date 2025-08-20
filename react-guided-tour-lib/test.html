@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test React Guided Tour</title>
+  
+  <!-- React and React-DOM -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  
+  <!-- React Guided Tour -->
+  <link rel="stylesheet" href="./dist/react-guided-tour.css">
+  
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    #step1 {
+      background: #3b82f6;
+      color: white;
+      padding: 20px;
+      margin: 20px 0;
+    }
+    #step2 {
+      background: #10b981;
+      color: white;
+      padding: 20px;
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Simple Test</h1>
+  
+  <div id="step1">
+    <h2>Step 1</h2>
+    <p>This is the first step</p>
+  </div>
+  
+  <div id="step2">
+    <h2>Step 2</h2>
+    <p>This is the second step</p>
+  </div>
+  
+  <button onclick="startTour()">Start Tour</button>
+  
+  <!-- Load React Guided Tour -->
+  <script src="./dist/react-guided-tour.umd.js"></script>
+  
+  <script>
+    // Wait for the library to load
+    window.addEventListener('load', function() {
+      console.log('Page loaded');
+      console.log('ReactGuidedTour available:', typeof window.ReactGuidedTour);
+      
+      // Check different possible locations
+      console.log('window.ReactGuidedTour:', window.ReactGuidedTour);
+      console.log('window.ReactGuidedTour.default:', window.ReactGuidedTour && window.ReactGuidedTour.default);
+      
+      if (window.ReactGuidedTour) {
+        console.log('ReactGuidedTour type:', typeof window.ReactGuidedTour);
+        console.log('ReactGuidedTour keys:', Object.keys(window.ReactGuidedTour));
+        
+        // Check if it's the default export
+        const tourLib = window.ReactGuidedTour.default || window.ReactGuidedTour;
+        console.log('Using tourLib:', tourLib);
+        
+        if (tourLib && tourLib.init) {
+          window.startTour = function() {
+            try {
+              const steps = [
+                {
+                  selector: '#step1',
+                  title: 'First Step',
+                  content: 'This is the first step of our tour.'
+                },
+                {
+                  selector: '#step2',
+                  title: 'Second Step',
+                  content: 'This is the second step. The tour is working!'
+                }
+              ];
+              
+              const tour = tourLib.init({
+                steps: steps,
+                targetElement: document.body,
+                autoStart: true,
+                theme: 'light',
+                showToggleButton: true
+              });
+              
+              console.log('Tour initialized:', tour);
+            } catch (error) {
+              console.error('Error starting tour:', error);
+            }
+          };
+        }
+      } else {
+        console.error('ReactGuidedTour not found on window');
+      }
+    });
+  </script>
+</body>
+</html>

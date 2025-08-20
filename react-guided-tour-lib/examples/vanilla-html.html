@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>React Guided Tour - Vanilla HTML Example</title>
+  
+  <!-- React and React-DOM -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  
+  <!-- React Guided Tour CSS -->
+  <link rel="stylesheet" href="../dist/react-guided-tour.css">
+  
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .header {
+      background: #3b82f6;
+      color: white;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+    
+    .section {
+      background: #f3f4f6;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    
+    .button {
+      background: #10b981;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+    
+    .button:hover {
+      background: #059669;
+    }
+    
+    .form-group {
+      margin-bottom: 15px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #d1d5db;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="header" id="welcome-section">
+      <h1>Welcome to Our Application</h1>
+      <p>This is a demonstration of React Guided Tour in a vanilla HTML page.</p>
+    </div>
+    
+    <div class="section" id="features-section">
+      <h2>Key Features</h2>
+      <ul>
+        <li>Easy Integration</li>
+        <li>Customizable Themes</li>
+        <li>Keyboard Navigation</li>
+        <li>State Persistence</li>
+      </ul>
+    </div>
+    
+    <div class="section" id="demo-section">
+      <h2>Interactive Demo</h2>
+      <button class="button" id="start-tour-btn">Start Tour</button>
+      <button class="button" id="reset-tour-btn">Reset Tour</button>
+      <button class="button" id="destroy-tour-btn">Destroy Tour</button>
+    </div>
+    
+    <div class="section" id="contact-section">
+      <h2>Contact Form</h2>
+      <form>
+        <div class="form-group">
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name">
+        </div>
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email">
+        </div>
+        <div class="form-group">
+          <label for="message">Message:</label>
+          <textarea id="message" name="message" rows="4"></textarea>
+        </div>
+        <button type="submit" class="button" id="submit-btn">Submit</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- React Guided Tour -->
+  <script src="../dist/react-guided-tour.umd.js"></script>
+  
+  <script>
+    // Define tour steps
+    const tourSteps = [
+      {
+        selector: '#welcome-section',
+        title: 'Welcome!',
+        content: 'This is the header section of our application. Let me show you around!'
+      },
+      {
+        selector: '#features-section',
+        title: 'Key Features',
+        content: 'Here you can see all the amazing features our application offers.'
+      },
+      {
+        selector: '#demo-section',
+        title: 'Tour Controls',
+        content: 'Use these buttons to control the tour programmatically.'
+      },
+      {
+        selector: '#name',
+        title: 'Contact Form',
+        content: 'Start by entering your name in this field.'
+      },
+      {
+        selector: '#email',
+        title: 'Email Address',
+        content: 'Provide your email address for us to contact you.'
+      },
+      {
+        selector: '#message',
+        title: 'Your Message',
+        content: 'Tell us what you think about the tour!'
+      },
+      {
+        selector: '#submit-btn',
+        title: 'Submit Form',
+        content: 'Click here when you\'re ready to submit your feedback.'
+      }
+    ];
+
+    // Initialize the tour
+    let tour = null;
+
+    function initTour() {
+      if (tour) {
+        tour.destroy();
+      }
+      
+      tour = window.ReactGuidedTour.init({
+        steps: tourSteps,
+        targetElement: document.body,
+        autoStart: false,
+        theme: 'light',
+        showToggleButton: true,
+        options: {
+          storageKey: 'vanillaAppTour',
+          onComplete: () => {
+            console.log('Tour completed!');
+            alert('Tour completed! Thank you for taking the tour.');
+          },
+          onSkip: () => {
+            console.log('Tour skipped!');
+          },
+          onStepChange: (step) => {
+            console.log('Step changed:', step);
+          }
+        }
+      });
+    }
+
+    // Initialize tour when page loads
+    document.addEventListener('DOMContentLoaded', initTour);
+
+    // Button controls
+    document.getElementById('start-tour-btn').addEventListener('click', () => {
+      if (tour) {
+        tour.start();
+      }
+    });
+
+    document.getElementById('reset-tour-btn').addEventListener('click', () => {
+      if (tour) {
+        tour.reset();
+        setTimeout(() => tour.start(), 100);
+      }
+    });
+
+    document.getElementById('destroy-tour-btn').addEventListener('click', () => {
+      if (tour) {
+        tour.destroy();
+        tour = null;
+        alert('Tour destroyed. Refresh the page to reinitialize.');
+      }
+    });
+
+    // Prevent form submission
+    document.querySelector('form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Form submitted! (This is just a demo)');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tooltip Position Demo - Guided Tour</title>
+    <link rel="stylesheet" href="../src/styles/guided-tour.css">
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        
+        .demo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 40px;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 100px;
+            margin: 100px 0;
+        }
+        
+        .edge-elements {
+            display: flex;
+            justify-content: space-between;
+            margin: 50px 0;
+        }
+        
+        .demo-element {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .demo-element:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .corner-element {
+            position: fixed;
+            background: #e74c3c;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        
+        #top-left { top: 20px; left: 20px; }
+        #top-right { top: 20px; right: 20px; }
+        #bottom-left { bottom: 20px; left: 20px; }
+        #bottom-right { bottom: 20px; right: 20px; }
+        
+        .controls {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .control-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .control-btn:hover {
+            background: #2980b9;
+            transform: translateY(-1px);
+        }
+        
+        .control-btn.active {
+            background: #27ae60;
+        }
+        
+        .info {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <h1>Tooltip Position & Viewport Constraint Demo</h1>
+        
+        <div class="controls">
+            <h3>Test Different Scenarios</h3>
+            <button class="control-btn" id="auto-position-tour">Auto Position Tour</button>
+            <button class="control-btn" id="edge-tour">Edge Elements Tour</button>
+            <button class="control-btn" id="corner-tour">Corner Elements Tour</button>
+            <button class="control-btn" id="anchor-tour">Anchor Position Tour</button>
+        </div>
+        
+        <div class="info">
+            <strong>💡 Tip:</strong> The tooltip will automatically adjust its position to stay within the viewport. 
+            Try the tours to see how tooltips adapt when elements are near screen edges!
+        </div>
+        
+        <!-- Grid Elements -->
+        <div class="grid">
+            <div class="demo-element" id="grid-1">Top Left</div>
+            <div class="demo-element" id="grid-2">Top Center</div>
+            <div class="demo-element" id="grid-3">Top Right</div>
+            <div class="demo-element" id="grid-4">Middle Left</div>
+            <div class="demo-element" id="grid-5">Center</div>
+            <div class="demo-element" id="grid-6">Middle Right</div>
+            <div class="demo-element" id="grid-7">Bottom Left</div>
+            <div class="demo-element" id="grid-8">Bottom Center</div>
+            <div class="demo-element" id="grid-9">Bottom Right</div>
+        </div>
+        
+        <!-- Edge Elements -->
+        <div class="edge-elements">
+            <div class="demo-element" id="edge-left" style="width: 150px;">Left Edge</div>
+            <div class="demo-element" id="edge-right" style="width: 150px;">Right Edge</div>
+        </div>
+        
+        <!-- Corner Elements -->
+        <div class="corner-element" id="top-left">Top Left Corner</div>
+        <div class="corner-element" id="top-right">Top Right Corner</div>
+        <div class="corner-element" id="bottom-left">Bottom Left Corner</div>
+        <div class="corner-element" id="bottom-right">Bottom Right Corner</div>
+    </div>
+
+    <script type="module">
+        import GuidedTour from '../src/guided-tour.js';
+        
+        // Auto Position Tour
+        const autoPositionTour = new GuidedTour({
+            id: 'auto-position',
+            steps: [
+                {
+                    element: '#grid-5',
+                    title: 'Center Element',
+                    content: 'When there\'s space all around, the tooltip appears at the bottom by default.',
+                    position: 'auto'
+                },
+                {
+                    element: '#grid-1',
+                    title: 'Top Left Element',
+                    content: 'Near the top-left corner, the tooltip automatically moves to the right or bottom.',
+                    position: 'auto'
+                },
+                {
+                    element: '#grid-3',
+                    title: 'Top Right Element',
+                    content: 'Near the top-right corner, the tooltip finds the best available space.',
+                    position: 'auto'
+                },
+                {
+                    element: '#grid-7',
+                    title: 'Bottom Left Element',
+                    content: 'Near the bottom, the tooltip appears above the element.',
+                    position: 'auto'
+                },
+                {
+                    element: '#grid-9',
+                    title: 'Bottom Right Element',
+                    content: 'The tooltip intelligently avoids going off-screen.',
+                    position: 'auto'
+                }
+            ]
+        });
+        
+        // Edge Elements Tour
+        const edgeTour = new GuidedTour({
+            id: 'edge-tour',
+            steps: [
+                {
+                    element: '#edge-left',
+                    title: 'Left Edge Element',
+                    content: 'When an element is at the left edge, the tooltip won\'t go off-screen to the left.',
+                    position: 'auto'
+                },
+                {
+                    element: '#edge-right',
+                    title: 'Right Edge Element',
+                    content: 'Similarly, tooltips avoid going off the right edge of the screen.',
+                    position: 'auto'
+                }
+            ]
+        });
+        
+        // Corner Elements Tour
+        const cornerTour = new GuidedTour({
+            id: 'corner-tour',
+            steps: [
+                {
+                    element: '#top-left',
+                    title: 'Top Left Corner',
+                    content: 'Fixed position elements in corners are handled correctly too!',
+                    position: 'auto'
+                },
+                {
+                    element: '#top-right',
+                    title: 'Top Right Corner',
+                    content: 'The tooltip finds space below and to the left.',
+                    position: 'auto'
+                },
+                {
+                    element: '#bottom-left',
+                    title: 'Bottom Left Corner',
+                    content: 'Here it goes above and to the right.',
+                    position: 'auto'
+                },
+                {
+                    element: '#bottom-right',
+                    title: 'Bottom Right Corner',
+                    content: 'And here it positions above and to the left.',
+                    position: 'auto'
+                }
+            ]
+        });
+        
+        // Anchor Position Tour
+        const anchorTour = new GuidedTour({
+            id: 'anchor-tour',
+            steps: [
+                {
+                    element: '#grid-5',
+                    title: 'Center Anchor (Default)',
+                    content: 'By default, tooltips are centered relative to the element.',
+                    position: 'bottom',
+                    anchorPosition: 'center'
+                },
+                {
+                    element: '#grid-5',
+                    title: 'Start Anchor',
+                    content: 'With anchorPosition: "start", the tooltip aligns to the left edge.',
+                    position: 'bottom',
+                    anchorPosition: 'start'
+                },
+                {
+                    element: '#grid-5',
+                    title: 'End Anchor',
+                    content: 'With anchorPosition: "end", the tooltip aligns to the right edge.',
+                    position: 'bottom',
+                    anchorPosition: 'end'
+                },
+                {
+                    element: '#grid-4',
+                    title: 'Vertical Anchoring',
+                    content: 'Anchor positions also work vertically. This is centered.',
+                    position: 'right',
+                    anchorPosition: 'center'
+                },
+                {
+                    element: '#grid-4',
+                    title: 'Top Aligned',
+                    content: 'With "start", the tooltip aligns to the top of the element.',
+                    position: 'right',
+                    anchorPosition: 'start'
+                },
+                {
+                    element: '#grid-4',
+                    title: 'Bottom Aligned',
+                    content: 'With "end", the tooltip aligns to the bottom of the element.',
+                    position: 'right',
+                    anchorPosition: 'end'
+                }
+            ],
+            tooltip: {
+                viewport: {
+                    padding: 30 // Extra padding from edges
+                }
+            }
+        });
+        
+        // Button handlers
+        document.getElementById('auto-position-tour').addEventListener('click', () => {
+            autoPositionTour.start();
+        });
+        
+        document.getElementById('edge-tour').addEventListener('click', () => {
+            edgeTour.start();
+        });
+        
+        document.getElementById('corner-tour').addEventListener('click', () => {
+            cornerTour.start();
+        });
+        
+        document.getElementById('anchor-tour').addEventListener('click', () => {
+            anchorTour.start();
+        });
+        
+        // Add click handlers to individual elements for testing
+        document.querySelectorAll('.demo-element, .corner-element').forEach(el => {
+            el.addEventListener('click', function() {
+                const tour = new GuidedTour({
+                    steps: [{
+                        element: `#${this.id}`,
+                        title: 'Test Tooltip',
+                        content: `This is element: ${this.textContent}. The tooltip automatically positions itself to stay within the viewport.`,
+                        position: 'auto'
+                    }]
+                });
+                tour.start();
+            });
+        });
+    </script>
+</body>
+</html>
